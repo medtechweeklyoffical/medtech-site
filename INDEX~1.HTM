@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MedBrief</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #faf8f4;
+    --paper: #ffffff;
+    --ink: #1c1c1e;
+    --ink-soft: #4a4a4e;
+    --rule: #e4ddd0;
+    --accent: #8a1f2d;
+    --accent-soft: #f4e4e4;
+    --badge-lab: #8a6d1f;
+    --badge-rct: #1f6b4a;
+    --badge-reg: #1f4a8a;
+    --badge-obs: #6a1f8a;
+    --serif: Georgia, 'Times New Roman', Times, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  header.site {
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .header-inner {
+    max-width: 960px; margin: 0 auto; padding: 18px 24px;
+    display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  }
+  .brand { display: flex; align-items: baseline; gap: 12px; }
+  .brand h1 {
+    font-family: var(--serif); font-size: 26px; margin: 0; letter-spacing: 0.5px;
+  }
+  .brand .tagline { font-size: 13px; color: var(--ink-soft); font-style: italic; }
+  nav.main { display: flex; gap: 22px; }
+  nav.main a { font-size: 14px; font-weight: 600; color: var(--ink); letter-spacing: 0.3px; }
+  nav.main a.active { color: var(--accent); }
+
+  main { max-width: 760px; margin: 0 auto; padding: 40px 24px 100px; }
+  .wide main { max-width: 900px; }
+
+  .eyebrow {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent);
+    font-weight: 700; margin-bottom: 10px;
+  }
+  h2.page-title { font-family: var(--serif); font-size: 34px; margin: 0 0 6px; }
+  .week-range { color: var(--ink-soft); font-size: 14px; margin-bottom: 28px; }
+
+  .intro-block {
+    font-size: 18px; color: var(--ink-soft); border-left: 3px solid var(--accent);
+    padding-left: 18px; margin: 0 0 40px; font-family: var(--serif);
+  }
+
+  .story-card {
+    background: var(--paper); border: 1px solid var(--rule); border-radius: 6px;
+    padding: 28px 30px; margin-bottom: 26px;
+  }
+  .story-card h3 {
+    font-family: var(--serif); font-size: 22px; margin: 0 0 14px; line-height: 1.3;
+  }
+  .story-section { margin-bottom: 14px; }
+  .story-section .label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
+    color: var(--ink-soft); margin-bottom: 4px;
+  }
+  .story-section p { margin: 0; }
+
+  .badge {
+    display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px;
+    border-radius: 100px; margin-bottom: 16px;
+  }
+  .badge.RCT { background: #e3f1ea; color: var(--badge-rct); }
+  .badge.LAB, .badge.ANIMAL { background: #f3ecd9; color: var(--badge-lab); }
+  .badge.REGULATORY { background: #e4ecf8; color: var(--badge-reg); }
+  .badge.OBSERVATIONAL { background: #f0e3f6; color: var(--badge-obs); }
+  .badge.EARLY_HUMAN_TRIAL { background: #e3f1ea; color: var(--badge-rct); }
+  .badge.META_ANALYSIS { background: #e3f1ea; color: var(--badge-rct); }
+  .badge.ESTABLISHED_CLINICAL { background: #e4ecf8; color: var(--badge-reg); }
+
+  .sources-list { font-size: 13px; color: var(--ink-soft); padding-top: 6px; border-top: 1px dashed var(--rule); }
+  .sources-list a { display: block; margin-top: 4px; }
+
+  .home-hero {
+    background: var(--paper); border: 1px solid var(--rule); border-radius: 8px;
+    padding: 36px; margin-bottom: 36px;
+  }
+  .home-hero .eyebrow { margin-bottom: 14px; }
+  .home-hero h2 { font-family: var(--serif); font-size: 32px; margin: 0 0 10px; }
+  .home-hero .summary { color: var(--ink-soft); margin-bottom: 20px; font-size: 16px; }
+  .btn {
+    display: inline-block; background: var(--accent); color: #fff; padding: 11px 22px;
+    border-radius: 5px; font-weight: 700; font-size: 14px; letter-spacing: 0.3px;
+  }
+  .btn:hover { text-decoration: none; opacity: 0.9; }
+
+  .headline-list { list-style: none; margin: 0; padding: 0; }
+  .headline-list li {
+    padding: 14px 0; border-bottom: 1px solid var(--rule); display: flex; gap: 14px; align-items: baseline;
+  }
+  .headline-list li:last-child { border-bottom: none; }
+  .headline-list .n { font-family: var(--serif); color: var(--accent); font-size: 18px; font-weight: 700; }
+  .headline-list .t { font-size: 15px; }
+
+  .archive-list { list-style: none; margin: 0; padding: 0; }
+  .archive-list li { border-bottom: 1px solid var(--rule); padding: 20px 0; }
+  .archive-list .arc-date { font-size: 13px; color: var(--ink-soft); margin-bottom: 4px; }
+  .archive-list .arc-title { font-family: var(--serif); font-size: 20px; }
+  .archive-list .arc-summary { color: var(--ink-soft); font-size: 14px; margin-top: 6px; }
+
+  .about-content h3 { font-family: var(--serif); font-size: 20px; margin-top: 32px; }
+  .disclaimer {
+    background: var(--accent-soft); border: 1px solid #e3c9c9; border-radius: 6px;
+    padding: 18px 20px; font-size: 14px; margin-top: 30px;
+  }
+
+  footer.site {
+    text-align: center; color: var(--ink-soft); font-size: 12px; padding: 30px 24px 50px;
+  }
+
+  @media (max-width: 600px) {
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    h2.page-title { font-size: 26px; }
+    .story-card { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="header-inner">
+    <div class="brand">
+      <h1>MedBrief</h1>
+      <span class="tagline">Medical breakthroughs, explained.</span>
+    </div>
+    <nav class="main" id="main-nav">
+      <a href="#/" data-route="/">Home</a>
+      <a href="#/archive" data-route="/archive">Archive</a>
+      <a href="#/about" data-route="/about">About</a>
+    </nav>
+  </div>
+</header>
+<main id="app"></main>
+<footer class="site">
+  MedBrief is an automated weekly medical-news digest. It is for general education only and is not medical advice — see the About page for details.
+</footer>
+
+<script type="application/json" id="medbrief-data">
+{
+  "articles": [
+    {
+      "weekId": "2026-W40",
+      "weekStart": "2026-09-28",
+      "weekEnd": "2026-10-04",
+      "title": "Week of September 28, 2026",
+      "slug": "2026-w40",
+      "intro": "This week's developments span five corners of medicine: a Phase 3 lung-cancer trial reporting a meaningful survival gain, an FDA decision calendar stacked with oncology drugs, a worsening measles outbreak that is testing the limits of U.S. disease surveillance, early but encouraging Alzheimer's imaging data, and a regulatory milestone for AI diagnostic software. None of these developments change clinical practice on their own this week, but together they illustrate how incremental the real pace of medical progress usually is.",
+      "stories": [
+        {
+          "headline": "A bispecific antibody outperforms a standard immunotherapy in advanced lung cancer",
+          "whatHappened": "Researchers reported Phase 3 trial results comparing ivonescimab, an antibody designed to block two cancer-related proteins (PD-1 and VEGF) at once, against pembrolizumab, a widely used immunotherapy, in patients with previously untreated advanced non-small-cell lung cancer.",
+          "whatTheResearchFound": "Patients who received ivonescimab lived a median of 30.8 months, compared with 22.6 months for patients on pembrolizumab alone — roughly an 8-month difference in median overall survival in this trial population.",
+          "whyItMatters": "Non-small-cell lung cancer is the most common form of lung cancer, and immunotherapy has been a standard first-line option for years. A head-to-head trial showing a large survival difference against an established drug, rather than a placebo, is a higher bar to clear than most oncology trials attempt.",
+          "evidenceType": "RCT",
+          "evidenceLabel": "Randomized controlled trial (Phase 3)",
+          "whatsNext": "Regulators in the U.S. and elsewhere will need to review the full trial data before this could become an approved option; independent replication and longer follow-up on side effects and durability of response are the next steps oncologists will look for.",
+          "sources": [
+            { "label": "CURE Today — 5 most impactful Phase 3 cancer trial results, September 2026", "url": "https://www.curetoday.com/view/the-5-most-impactful-phase-3-cancer-trial-results-from-september-2026" },
+            { "label": "AACR Editors' Picks, September 2026", "url": "https://www.aacr.org/blog/2026/09/17/editors-picks-drug-resistance-breast-cancer-treatment-covid-19-and-cancer-care-and-more/" }
+          ]
+        },
+        {
+          "headline": "FDA calendar stacks four oncology and immunology decisions for mid-to-late October",
+          "whatHappened": "The FDA's October 2026 decision calendar (PDUFA dates) includes several closely watched reviews: atezolizumab combined with chemotherapy for stage III colon cancer, an antibody-drug conjugate (ifinatamab deruxtecan) for a hard-to-treat form of lung cancer, an expanded use of satralizumab for thyroid eye disease, and an antisense drug (bepirovirsen) for chronic hepatitis B.",
+          "whatTheResearchFound": "These are regulatory decisions, not new research findings — the FDA is set to rule on applications built on trial data these companies have already submitted. No approvals have been granted yet as of this writing.",
+          "whyItMatters": "A cluster of decisions in one month, across colon cancer, lung cancer, eye disease, and a chronic viral infection, gives a useful preview of which therapies could reach patients before the end of the year if cleared.",
+          "evidenceType": "REGULATORY",
+          "evidenceLabel": "Regulatory decision pending",
+          "whatsNext": "Each drug's decision date falls between October 9 and October 26, 2026. We'll note any approvals, rejections, or delays in a future issue once the FDA rules.",
+          "sources": [
+            { "label": "The Cardiology Advisor — October 2026 FDA PDUFA dates", "url": "https://www.thecardiologyadvisor.com/news/october-2026-fda-pdufa-dates/" }
+          ]
+        },
+        {
+          "headline": "U.S. measles outbreak continues to grow, now the worst in over three decades",
+          "whatHappened": "The CDC reported 3,887 confirmed measles cases nationwide as of October 1, 2026, an increase of roughly 6% from the prior week, spread across 47 jurisdictions and linked to 42 active outbreaks.",
+          "whatTheResearchFound": "This is surveillance data, not an experimental study: about 95% of this year's cases are tied to identifiable outbreaks rather than isolated travel-related infections, and case counts are already running ahead of last year's total, which itself was a multi-decade high. CDC data cited elsewhere this year has tied the trend to declining MMR vaccination coverage in children, down from about 95% to roughly 92-93% over the past five years.",
+          "whyItMatters": "Measles is highly contagious and was declared eliminated in the U.S. in 2000; sustained community spread at this scale raises the practical possibility of the U.S. losing that elimination status, a public-health marker rather than an immediate individual medical risk for most vaccinated people.",
+          "evidenceType": "OBSERVATIONAL",
+          "evidenceLabel": "Public health surveillance data",
+          "whatsNext": "CDC continues to publish weekly updates; the figure to watch is whether any single state's outbreak chain of transmission runs uninterrupted for a full year, which is the technical threshold for losing elimination status.",
+          "sources": [
+            { "label": "CDC — Measles Cases and Outbreaks", "url": "https://www.cdc.gov/measles/data-research/index.html" },
+            { "label": "CIDRAP — CDC: ever-expanding US measles outbreak tops last year's total", "url": "https://www.cidrap.umn.edu/measles/cdc-ever-expanding-us-measles-outbreak-tops-last-years-total" }
+          ]
+        },
+        {
+          "headline": "An amyloid-clearing antibody shows early signs of reaching deeper into the brain",
+          "whatHappened": "Roche reported Phase 1/2 data for trontinemab, an antibody engineered to cross the blood-brain barrier more efficiently than earlier anti-amyloid drugs, in people with early Alzheimer's disease.",
+          "whatTheResearchFound": "At the highest dose tested, the drug cleared beta-amyloid plaque — one of the hallmark proteins associated with Alzheimer's — in 92% of participants, and apparently did so faster than existing approved anti-amyloid drugs in early comparisons.",
+          "whyItMatters": "Current anti-amyloid drugs (lecanemab, donanemab) already clear plaque but require many months of infusions and carry a meaningful risk of brain swelling or bleeding; a faster-acting, better-tolerated entrant could matter even without yet proving it slows memory loss better than existing options.",
+          "evidenceType": "EARLY_HUMAN_TRIAL",
+          "evidenceLabel": "Early-phase human trial (Phase 1/2)",
+          "whatsNext": "Plaque clearance is a biological marker, not proof the drug preserves memory or thinking — two Phase 3 trials are now recruiting across 18 countries to test whether it does, with results years away.",
+          "sources": [
+            { "label": "Being Patient — Alzheimer's Trials Update, 2026", "url": "https://beingpatient.com/trials-update-july-2026/" }
+          ]
+        },
+        {
+          "headline": "FDA clearances for autonomous AI diagnostic tools pass 1,600 devices",
+          "whatHappened": "The FDA has now authorized more than 1,600 AI-enabled medical devices for the U.S. market, including roughly 47 tools cleared this year that the agency classifies as autonomous rather than purely decision-support.",
+          "whatTheResearchFound": "Radiology still accounts for about three-quarters of all clearances, with cardiology, neurology, pathology, and ophthalmology making up most of the rest; nearly all cleared devices flag findings for a clinician to review rather than issuing an unsupervised diagnosis.",
+          "whyItMatters": "The volume of clearances signals how embedded AI tools have become in routine image review in U.S. hospitals, even though the clinical evidence base for any single device varies widely and the FDA clearance process (510(k)) typically requires only that a device be comparably safe and effective to an existing one, not a large new clinical trial.",
+          "evidenceType": "REGULATORY",
+          "evidenceLabel": "Regulatory clearance data, established clinical use",
+          "whatsNext": "Independent researchers continue to call for more post-market monitoring of how these tools perform across different patient populations and imaging equipment, since most clearances rely on the manufacturer's own validation data.",
+          "sources": [
+            { "label": "FDA — Artificial Intelligence-Enabled Medical Devices", "url": "https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-software-medical-device" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>
+(function () {
+  var DATA = JSON.parse(document.getElementById('medbrief-data').textContent);
+  var articles = DATA.articles.slice().sort(function (a, b) { return a.weekId < b.weekId ? 1 : -1; });
+  var app = document.getElementById('app');
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function fmtRange(start, end) {
+    var o = { month: 'long', day: 'numeric', year: 'numeric' };
+    try {
+      var s = new Date(start + 'T00:00:00');
+      var e = new Date(end + 'T00:00:00');
+      return s.toLocaleDateString('en-US', o) + ' – ' + e.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+    } catch (e2) { return start + ' – ' + end; }
+  }
+
+  function storyCard(story) {
+    var badge = '<span class="badge ' + esc(story.evidenceType) + '">' + esc(story.evidenceLabel) + '</span>';
+    var sources = (story.sources || []).map(function (s) {
+      return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label) + ' ↗</a>';
+    }).join('');
+    return (
+      '<div class="story-card">' +
+        badge +
+        '<h3>' + esc(story.headline) + '</h3>' +
+        section('What happened', story.whatHappened) +
+        section('What the research found', story.whatTheResearchFound) +
+        section('Why it matters', story.whyItMatters) +
+        section("What's next", story.whatsNext) +
+        '<div class="sources-list"><div class="label" style="margin-bottom:6px;">Sources</div>' + sources + '</div>' +
+      '</div>'
+    );
+  }
+
+  function section(label, text) {
+    return '<div class="story-section"><div class="label">' + esc(label) + '</div><p>' + esc(text) + '</p></div>';
+  }
+
+  function renderArticleBody(article) {
+    return (
+      '<div class="eyebrow">The Week in Medicine</div>' +
+      '<h2 class="page-title">' + esc(article.title) + '</h2>' +
+      '<div class="week-range">' + fmtRange(article.weekStart, article.weekEnd) + '</div>' +
+      '<p class="intro-block">' + esc(article.intro) + '</p>' +
+      article.stories.map(storyCard).join('')
+    );
+  }
+
+  function renderHome() {
+    if (!articles.length) {
+      app.innerHTML = '<h2 class="page-title">No articles yet</h2><p>The first weekly issue will appear here once the pipeline runs.</p>';
+      return;
+    }
+    var latest = articles[0];
+    var list = latest.stories.map(function (s, i) {
+      return '<li><span class="n">' + (i + 1) + '</span><span class="t">' + esc(s.headline) + '</span></li>';
+    }).join('');
+    app.innerHTML =
+      '<div class="home-hero">' +
+        '<div class="eyebrow">Latest Issue · ' + fmtRange(latest.weekStart, latest.weekEnd) + '</div>' +
+        '<h2>' + esc(latest.title) + '</h2>' +
+        '<p class="summary">' + esc(latest.intro) + '</p>' +
+        '<a class="btn" href="#/article/' + esc(latest.slug) + '">Read the full issue →</a>' +
+      '</div>' +
+      '<h3 style="font-family: var(--serif); font-size: 18px; margin-bottom: 10px;">This week’s developments</h3>' +
+      '<ul class="headline-list">' + list + '</ul>';
+  }
+
+  function renderArticle(slug) {
+    var article = articles.filter(function (a) { return a.slug === slug; })[0];
+    if (!article) {
+      app.innerHTML = '<h2 class="page-title">Issue not found</h2><p><a href="#/">Back to Home</a></p>';
+      return;
+    }
+    app.innerHTML = renderArticleBody(article);
+  }
+
+  function renderArchive() {
+    if (!articles.length) {
+      app.innerHTML = '<h2 class="page-title">Archive</h2><p>No issues published yet.</p>';
+      return;
+    }
+    var items = articles.map(function (a) {
+      return (
+        '<li>' +
+          '<div class="arc-date">' + fmtRange(a.weekStart, a.weekEnd) + '</div>' +
+          '<div class="arc-title"><a href="#/article/' + esc(a.slug) + '">' + esc(a.title) + '</a></div>' +
+          '<div class="arc-summary">' + esc(a.intro) + '</div>' +
+        '</li>'
+      );
+    }).join('');
+    app.innerHTML = '<div class="eyebrow">Archive</div><h2 class="page-title">Every weekly issue</h2><ul class="archive-list">' + items + '</ul>';
+  }
+
+  function renderAbout() {
+    app.innerHTML =
+      '<div class="eyebrow">About</div>' +
+      '<h2 class="page-title">What MedBrief is</h2>' +
+      '<div class="about-content">' +
+        '<p>MedBrief is an automated weekly digest of notable developments in medical and scientific research — clinical trials, drug approvals, public-health surveillance, and medical technology — written for an intelligent general reader, not medical professionals.</p>' +
+        '<h3>How stories are selected</h3>' +
+        '<p>Each week, candidate stories are gathered from reputable primary and secondary sources (regulatory agencies like the FDA and CDC, peer-reviewed journals, major research institutions, and established science journalism). Stories covering the same underlying event are grouped together, and the group is judged on medical significance, strength of evidence, and public-health relevance — not on how dramatic a headline sounds.</p>' +
+        '<h3>AI-assisted synthesis</h3>' +
+        '<p>Claude, Anthropic’s AI model, helps synthesize the selected stories into a single weekly article in the format shown here. It is instructed not to invent facts, citations, or statistics, and to clearly label how strong the underlying evidence is for every claim.</p>' +
+        '<h3>Sourcing</h3>' +
+        '<p>Every story links to the sources it was built from so you can read the original reporting or research yourself.</p>' +
+        '<div class="disclaimer"><strong>Not medical advice.</strong> MedBrief is an educational publication. It does not provide individualized medical advice, and nothing here should be used to start, stop, or change any medication or treatment. Talk to a qualified healthcare provider about your own health.</div>' +
+      '</div>';
+  }
+
+  function setActiveNav(route) {
+    var links = document.querySelectorAll('#main-nav a');
+    for (var i = 0; i < links.length; i++) {
+      var r = links[i].getAttribute('data-route');
+      var isActive = route === r || (route.indexOf('/article/') === 0 && r === '/');
+      links[i].classList.toggle('active', isActive);
+    }
+  }
+
+  function router() {
+    var hash = location.hash.replace(/^#/, '') || '/';
+    window.scrollTo(0, 0);
+    if (hash === '/' ) { renderHome(); setActiveNav('/'); }
+    else if (hash === '/archive') { renderArchive(); setActiveNav('/archive'); }
+    else if (hash === '/about') { renderAbout(); setActiveNav('/about'); }
+    else if (hash.indexOf('/article/') === 0) { renderArticle(hash.replace('/article/', '')); setActiveNav(hash); }
+    else { renderHome(); setActiveNav('/'); }
+  }
+
+  window.addEventListener('hashchange', router);
+  router();
+})();
+</script>
+</body>
+</html>
