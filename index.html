@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>MedBrief</title>
+<title>MedIntel — Medical Insights, Weekly</title>
 <style>
   :root {
     color-scheme: light;
@@ -13,10 +13,12 @@
     --rule: #e4ddd0;
     --accent: #8a1f2d;
     --accent-soft: #f4e4e4;
-    --badge-lab: #8a6d1f;
-    --badge-rct: #1f6b4a;
-    --badge-reg: #1f4a8a;
-    --badge-obs: #6a1f8a;
+    --cardio: #8a1f2d;
+    --cardio-bg: #f6e6e8;
+    --neuro: #1f4a8a;
+    --neuro-bg: #e6ecf6;
+    --ai-bg: #eef6f1;
+    --ai-rule: #cfe6d7;
     --serif: Georgia, 'Times New Roman', Times, serif;
     --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   }
@@ -31,7 +33,7 @@
   }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
-
+ 
   header.site {
     border-bottom: 1px solid var(--rule);
     background: var(--paper);
@@ -42,99 +44,88 @@
     display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 10px;
   }
   .brand { display: flex; align-items: baseline; gap: 12px; }
-  .brand h1 {
-    font-family: var(--serif); font-size: 26px; margin: 0; letter-spacing: 0.5px;
-  }
+  .brand h1 { font-family: var(--serif); font-size: 26px; margin: 0; letter-spacing: 0.5px; }
   .brand .tagline { font-size: 13px; color: var(--ink-soft); font-style: italic; }
   nav.main { display: flex; gap: 22px; }
   nav.main a { font-size: 14px; font-weight: 600; color: var(--ink); letter-spacing: 0.3px; }
   nav.main a.active { color: var(--accent); }
-
+ 
   main { max-width: 760px; margin: 0 auto; padding: 40px 24px 100px; }
-  .wide main { max-width: 900px; }
-
+ 
   .eyebrow {
     font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent);
     font-weight: 700; margin-bottom: 10px;
   }
-  h2.page-title { font-family: var(--serif); font-size: 34px; margin: 0 0 6px; }
-  .week-range { color: var(--ink-soft); font-size: 14px; margin-bottom: 28px; }
-
-  .intro-block {
-    font-size: 18px; color: var(--ink-soft); border-left: 3px solid var(--accent);
-    padding-left: 18px; margin: 0 0 40px; font-family: var(--serif);
-  }
-
-  .story-card {
-    background: var(--paper); border: 1px solid var(--rule); border-radius: 6px;
-    padding: 28px 30px; margin-bottom: 26px;
-  }
-  .story-card h3 {
-    font-family: var(--serif); font-size: 22px; margin: 0 0 14px; line-height: 1.3;
-  }
-  .story-section { margin-bottom: 14px; }
-  .story-section .label {
-    font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
-    color: var(--ink-soft); margin-bottom: 4px;
-  }
-  .story-section p { margin: 0; }
-
-  .badge {
+  h2.page-title { font-family: var(--serif); font-size: 32px; margin: 0 0 6px; line-height: 1.2; }
+  .meta-row { color: var(--ink-soft); font-size: 14px; margin-bottom: 24px; }
+  .meta-row .name { font-weight: 700; color: var(--ink); }
+ 
+  .badge-topic {
     display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px;
-    border-radius: 100px; margin-bottom: 16px;
+    border-radius: 100px; margin-bottom: 14px;
   }
-  .badge.RCT { background: #e3f1ea; color: var(--badge-rct); }
-  .badge.LAB, .badge.ANIMAL { background: #f3ecd9; color: var(--badge-lab); }
-  .badge.REGULATORY { background: #e4ecf8; color: var(--badge-reg); }
-  .badge.OBSERVATIONAL { background: #f0e3f6; color: var(--badge-obs); }
-  .badge.EARLY_HUMAN_TRIAL { background: #e3f1ea; color: var(--badge-rct); }
-  .badge.META_ANALYSIS { background: #e3f1ea; color: var(--badge-rct); }
-  .badge.ESTABLISHED_CLINICAL { background: #e4ecf8; color: var(--badge-reg); }
-
-  .sources-list { font-size: 13px; color: var(--ink-soft); padding-top: 6px; border-top: 1px dashed var(--rule); }
+  .badge-topic.cardio { background: var(--cardio-bg); color: var(--cardio); }
+  .badge-topic.neuro { background: var(--neuro-bg); color: var(--neuro); }
+ 
+  .ai-summary {
+    background: var(--ai-bg); border: 1px solid var(--ai-rule); border-radius: 6px;
+    padding: 16px 20px; margin: 0 0 30px;
+  }
+  .ai-summary .label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
+    color: #2d6b45; margin-bottom: 6px;
+  }
+  .ai-summary p { margin: 0; font-size: 15px; color: var(--ink); }
+ 
+  .article-body p { margin: 0 0 16px; }
+  .article-body p.subhead { font-weight: 700; font-family: var(--serif); font-size: 18px; margin-top: 26px; }
+ 
+  .sources-list { font-size: 13px; color: var(--ink-soft); padding-top: 14px; margin-top: 10px; border-top: 1px dashed var(--rule); }
+  .sources-list .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 6px; }
   .sources-list a { display: block; margin-top: 4px; }
-
+ 
   .home-hero {
     background: var(--paper); border: 1px solid var(--rule); border-radius: 8px;
     padding: 36px; margin-bottom: 36px;
   }
-  .home-hero .eyebrow { margin-bottom: 14px; }
-  .home-hero h2 { font-family: var(--serif); font-size: 32px; margin: 0 0 10px; }
+  .home-hero h2 { font-family: var(--serif); font-size: 30px; margin: 10px 0; }
   .home-hero .summary { color: var(--ink-soft); margin-bottom: 20px; font-size: 16px; }
   .btn {
     display: inline-block; background: var(--accent); color: #fff; padding: 11px 22px;
     border-radius: 5px; font-weight: 700; font-size: 14px; letter-spacing: 0.3px;
   }
   .btn:hover { text-decoration: none; opacity: 0.9; }
-
-  .headline-list { list-style: none; margin: 0; padding: 0; }
-  .headline-list li {
-    padding: 14px 0; border-bottom: 1px solid var(--rule); display: flex; gap: 14px; align-items: baseline;
+ 
+  .article-list { list-style: none; margin: 0; padding: 0; }
+  .article-list li { padding: 18px 0; border-bottom: 1px solid var(--rule); }
+  .article-list li:last-child { border-bottom: none; }
+  .article-list .a-title { font-family: var(--serif); font-size: 19px; margin-bottom: 4px; }
+  .article-list .a-meta { font-size: 13px; color: var(--ink-soft); margin-bottom: 6px; }
+  .article-list .a-summary { color: var(--ink-soft); font-size: 14px; }
+ 
+  .filter-row { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .filter-btn {
+    font-size: 13px; font-weight: 600; padding: 7px 14px; border-radius: 100px;
+    border: 1px solid var(--rule); background: var(--paper); color: var(--ink-soft); cursor: pointer;
   }
-  .headline-list li:last-child { border-bottom: none; }
-  .headline-list .n { font-family: var(--serif); color: var(--accent); font-size: 18px; font-weight: 700; }
-  .headline-list .t { font-size: 15px; }
-
-  .archive-list { list-style: none; margin: 0; padding: 0; }
-  .archive-list li { border-bottom: 1px solid var(--rule); padding: 20px 0; }
-  .archive-list .arc-date { font-size: 13px; color: var(--ink-soft); margin-bottom: 4px; }
-  .archive-list .arc-title { font-family: var(--serif); font-size: 20px; }
-  .archive-list .arc-summary { color: var(--ink-soft); font-size: 14px; margin-top: 6px; }
-
+  .filter-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+ 
   .about-content h3 { font-family: var(--serif); font-size: 20px; margin-top: 32px; }
   .disclaimer {
     background: var(--accent-soft); border: 1px solid #e3c9c9; border-radius: 6px;
     padding: 18px 20px; font-size: 14px; margin-top: 30px;
   }
-
-  footer.site {
-    text-align: center; color: var(--ink-soft); font-size: 12px; padding: 30px 24px 50px;
-  }
-
+  .contributor-list { list-style: none; margin: 16px 0 0; padding: 0; }
+  .contributor-list li { padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  .contributor-list .c-name { font-weight: 700; }
+  .contributor-list .c-role { color: var(--accent); font-size: 13px; font-weight: 600; }
+  .contributor-list .c-bio { color: var(--ink-soft); font-size: 14px; margin-top: 4px; }
+ 
+  footer.site { text-align: center; color: var(--ink-soft); font-size: 12px; padding: 30px 24px 50px; }
+ 
   @media (max-width: 600px) {
     .header-inner { flex-direction: column; align-items: flex-start; }
-    h2.page-title { font-size: 26px; }
-    .story-card { padding: 20px; }
+    h2.page-title { font-size: 25px; }
   }
 </style>
 </head>
@@ -142,8 +133,8 @@
 <header class="site">
   <div class="header-inner">
     <div class="brand">
-      <h1>MedBrief</h1>
-      <span class="tagline">Medical breakthroughs, explained.</span>
+      <h1>MedIntel</h1>
+      <span class="tagline">Medicine Intel · Medical Insights, Weekly.</span>
     </div>
     <nav class="main" id="main-nav">
       <a href="#/" data-route="/">Home</a>
@@ -154,203 +145,944 @@
 </header>
 <main id="app"></main>
 <footer class="site">
-  MedBrief is an automated weekly medical-news digest. It is for general education only and is not medical advice — see the About page for details.
+  MedIntel is a student-run medical research publication, with AI assisting on quick summaries. It is for general education only and is not medical advice — see the About page for details.
 </footer>
-
+ 
 <script type="application/json" id="medbrief-data">
 {
+  "contributors": [
+    {
+      "name": "Arnav Maskey",
+      "role": "Co-Founder — Cardiology",
+      "bio": "Writes MedIntel's Cardiology coverage, tracking innovation in cardiovascular medicine, from RNA therapeutics to robotic surgery and AI-enabled diagnostics."
+    },
+    {
+      "name": "Arnav Chinnappareddy",
+      "role": "Co-Founder — Psychology & Neuroscience",
+      "bio": "Writes MedIntel's Psychology & Neuroscience coverage, focused on neurotechnology and emerging treatments for depression, anxiety, PTSD, and other mental health conditions."
+    }
+  ],
   "articles": [
     {
-      "weekId": "2026-W40",
-      "weekStart": "2026-09-28",
-      "weekEnd": "2026-10-04",
-      "title": "Week of September 28, 2026",
-      "slug": "2026-w40",
-      "intro": "This week's developments span five corners of medicine: a Phase 3 lung-cancer trial reporting a meaningful survival gain, an FDA decision calendar stacked with oncology drugs, a worsening measles outbreak that is testing the limits of U.S. disease surveillance, early but encouraging Alzheimer's imaging data, and a regulatory milestone for AI diagnostic software. None of these developments change clinical practice on their own this week, but together they illustrate how incremental the real pace of medical progress usually is.",
-      "stories": [
-        {
-          "headline": "A bispecific antibody outperforms a standard immunotherapy in advanced lung cancer",
-          "whatHappened": "Researchers reported Phase 3 trial results comparing ivonescimab, an antibody designed to block two cancer-related proteins (PD-1 and VEGF) at once, against pembrolizumab, a widely used immunotherapy, in patients with previously untreated advanced non-small-cell lung cancer.",
-          "whatTheResearchFound": "Patients who received ivonescimab lived a median of 30.8 months, compared with 22.6 months for patients on pembrolizumab alone — roughly an 8-month difference in median overall survival in this trial population.",
-          "whyItMatters": "Non-small-cell lung cancer is the most common form of lung cancer, and immunotherapy has been a standard first-line option for years. A head-to-head trial showing a large survival difference against an established drug, rather than a placebo, is a higher bar to clear than most oncology trials attempt.",
-          "evidenceType": "RCT",
-          "evidenceLabel": "Randomized controlled trial (Phase 3)",
-          "whatsNext": "Regulators in the U.S. and elsewhere will need to review the full trial data before this could become an approved option; independent replication and longer follow-up on side effects and durability of response are the next steps oncologists will look for.",
-          "sources": [
-            { "label": "CURE Today — 5 most impactful Phase 3 cancer trial results, September 2026", "url": "https://www.curetoday.com/view/the-5-most-impactful-phase-3-cancer-trial-results-from-september-2026" },
-            { "label": "AACR Editors' Picks, September 2026", "url": "https://www.aacr.org/blog/2026/09/17/editors-picks-drug-resistance-breast-cancer-treatment-covid-19-and-cancer-care-and-more/" }
-          ]
-        },
-        {
-          "headline": "FDA calendar stacks four oncology and immunology decisions for mid-to-late October",
-          "whatHappened": "The FDA's October 2026 decision calendar (PDUFA dates) includes several closely watched reviews: atezolizumab combined with chemotherapy for stage III colon cancer, an antibody-drug conjugate (ifinatamab deruxtecan) for a hard-to-treat form of lung cancer, an expanded use of satralizumab for thyroid eye disease, and an antisense drug (bepirovirsen) for chronic hepatitis B.",
-          "whatTheResearchFound": "These are regulatory decisions, not new research findings — the FDA is set to rule on applications built on trial data these companies have already submitted. No approvals have been granted yet as of this writing.",
-          "whyItMatters": "A cluster of decisions in one month, across colon cancer, lung cancer, eye disease, and a chronic viral infection, gives a useful preview of which therapies could reach patients before the end of the year if cleared.",
-          "evidenceType": "REGULATORY",
-          "evidenceLabel": "Regulatory decision pending",
-          "whatsNext": "Each drug's decision date falls between October 9 and October 26, 2026. We'll note any approvals, rejections, or delays in a future issue once the FDA rules.",
-          "sources": [
-            { "label": "The Cardiology Advisor — October 2026 FDA PDUFA dates", "url": "https://www.thecardiologyadvisor.com/news/october-2026-fda-pdufa-dates/" }
-          ]
-        },
-        {
-          "headline": "U.S. measles outbreak continues to grow, now the worst in over three decades",
-          "whatHappened": "The CDC reported 3,887 confirmed measles cases nationwide as of October 1, 2026, an increase of roughly 6% from the prior week, spread across 47 jurisdictions and linked to 42 active outbreaks.",
-          "whatTheResearchFound": "This is surveillance data, not an experimental study: about 95% of this year's cases are tied to identifiable outbreaks rather than isolated travel-related infections, and case counts are already running ahead of last year's total, which itself was a multi-decade high. CDC data cited elsewhere this year has tied the trend to declining MMR vaccination coverage in children, down from about 95% to roughly 92-93% over the past five years.",
-          "whyItMatters": "Measles is highly contagious and was declared eliminated in the U.S. in 2000; sustained community spread at this scale raises the practical possibility of the U.S. losing that elimination status, a public-health marker rather than an immediate individual medical risk for most vaccinated people.",
-          "evidenceType": "OBSERVATIONAL",
-          "evidenceLabel": "Public health surveillance data",
-          "whatsNext": "CDC continues to publish weekly updates; the figure to watch is whether any single state's outbreak chain of transmission runs uninterrupted for a full year, which is the technical threshold for losing elimination status.",
-          "sources": [
-            { "label": "CDC — Measles Cases and Outbreaks", "url": "https://www.cdc.gov/measles/data-research/index.html" },
-            { "label": "CIDRAP — CDC: ever-expanding US measles outbreak tops last year's total", "url": "https://www.cidrap.umn.edu/measles/cdc-ever-expanding-us-measles-outbreak-tops-last-years-total" }
-          ]
-        },
-        {
-          "headline": "An amyloid-clearing antibody shows early signs of reaching deeper into the brain",
-          "whatHappened": "Roche reported Phase 1/2 data for trontinemab, an antibody engineered to cross the blood-brain barrier more efficiently than earlier anti-amyloid drugs, in people with early Alzheimer's disease.",
-          "whatTheResearchFound": "At the highest dose tested, the drug cleared beta-amyloid plaque — one of the hallmark proteins associated with Alzheimer's — in 92% of participants, and apparently did so faster than existing approved anti-amyloid drugs in early comparisons.",
-          "whyItMatters": "Current anti-amyloid drugs (lecanemab, donanemab) already clear plaque but require many months of infusions and carry a meaningful risk of brain swelling or bleeding; a faster-acting, better-tolerated entrant could matter even without yet proving it slows memory loss better than existing options.",
-          "evidenceType": "EARLY_HUMAN_TRIAL",
-          "evidenceLabel": "Early-phase human trial (Phase 1/2)",
-          "whatsNext": "Plaque clearance is a biological marker, not proof the drug preserves memory or thinking — two Phase 3 trials are now recruiting across 18 countries to test whether it does, with results years away.",
-          "sources": [
-            { "label": "Being Patient — Alzheimer's Trials Update, 2026", "url": "https://beingpatient.com/trials-update-july-2026/" }
-          ]
-        },
-        {
-          "headline": "FDA clearances for autonomous AI diagnostic tools pass 1,600 devices",
-          "whatHappened": "The FDA has now authorized more than 1,600 AI-enabled medical devices for the U.S. market, including roughly 47 tools cleared this year that the agency classifies as autonomous rather than purely decision-support.",
-          "whatTheResearchFound": "Radiology still accounts for about three-quarters of all clearances, with cardiology, neurology, pathology, and ophthalmology making up most of the rest; nearly all cleared devices flag findings for a clinician to review rather than issuing an unsupervised diagnosis.",
-          "whyItMatters": "The volume of clearances signals how embedded AI tools have become in routine image review in U.S. hospitals, even though the clinical evidence base for any single device varies widely and the FDA clearance process (510(k)) typically requires only that a device be comparably safe and effective to an existing one, not a large new clinical trial.",
-          "evidenceType": "REGULATORY",
-          "evidenceLabel": "Regulatory clearance data, established clinical use",
-          "whatsNext": "Independent researchers continue to call for more post-market monitoring of how these tools perform across different patient populations and imaging equipment, since most clearances rely on the manufacturer's own validation data.",
-          "sources": [
-            { "label": "FDA — Artificial Intelligence-Enabled Medical Devices", "url": "https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-software-medical-device" }
-          ]
-        }
-      ]
+      "slug": "memory-prostheses-applications-to-mental-health-my-take",
+      "title": "Memory Prostheses - Applications to Mental Health & My Take",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2025-10-10",
+      "readTime": "7 min read",
+      "aiSummary": "Memory prostheses use implanted electrodes to record and restore hippocampal activity tied to memory formation, with early human trials showing measurable gains in recall. The piece weighs potential PTSD, depression, and Alzheimer's applications against serious technical and identity-related ethical concerns.",
+      "content": [
+        "Post Traumatic Stress Disorder (PTSD) is a disorder that is defined by the memories that we experience. Traumatic events replay over and over, through vivid nightmares and intense flashbacks.",
+        "Recent advances in technology have shown that memory prostheses, a form of brain computer interfaces (BCIs) that are designed to mimic or even restore the neural processes of memory formation. They promise not only to help people recall lost memories, but recreate the neural codes that lay behind memory formation and retrieval.",
+        "The Hippocampus",
+        "The hippocampus is at the core of memory processing. It plays an important role in turning experience into long term memory, and is especially high in activity during spatial and contextual learning.",
+        "It is damage to this region that leads to deficits in both the ability to form new memories, referred to as anterograde amnesia, and the ability to recall past memories, known as retrograde amnesia (the more commonly known form of amnesia).",
+        "Replicating the electrical activity that defines how this region works in relation to memory is much more difficult than in other brain regions with more linear functions. These patterns are subject to thorough change over time and differ greatly across individuals. This difficulty is what makes a memory prosthesis a major engineering challenge.",
+        "What is a Memory Prosthesis",
+        "A memory prosthesis, also known as a cognitive prosthesis, is a system that interacts with the brain regions responsible for memory, particularly the hippocampus and other medial temporal lobe structures, and attempts to assist or restore functions of making new memories, memory storage, and memory retrieval.",
+        "The prosthesis works specifically on two subregions of the hippocampus: CA3 and CA1. The pathway between these two regions is extremely important, as CA3 is known to encode patterns, while CA1 refines and outputs them. Prostheses aim to record CA3 activity as input, while stimulating CA1 activity to serve as output.",
+        "How do Memory Prostheses Work?",
+        "The treatment would begin with the implantation of microelectrode arrays into these subregions. Afterwards, the patient would perform memory tasks in order to exercise these regions, allowing the system to record spikes in activity in CA3 and CA1. The results of these recordings are fed into multi-input, multi-output (MIMO) nonlinear models, in order to learn how to predict CA1 outputs from the neural firing in CA3 while successful memory encoding occurs, in order to attempt to recreate this activity later through stimulation.",
+        "This would need to happen every single time on a patient scale. Each person's hippocampus and temporal lobe is extremely complex and differs greatly from patient to patient.",
+        "After this training, the prosthesis would operate in a closed loop. During real world memory formation, like learning new faces, routes, or schedules, the system would monitor CA3 activity in real time. It would then predict the optimal CA1 output activity pattern to correspond to successful encoding. Finally, it would deliver precise stimulation to CA1 neurons to replicate that output activity in the case that the brain fails to do so on its own or fails to do so thoroughly. The prosthesis would essentially fill in for or amplify the process that converts inputs into long term memory. Bilateral stimulation, affecting both the left and right hippocampi, is generally seen to produce stronger effects than unilateral stimulation.",
+        "Research into Memory Prostheses",
+        "Research has very recently moved from lab theory and preparation over the last decade to very early human demonstrations in the last two years. Clinical trials of these prostheses in humans have demonstrated that targeted stimulation can indeed function to enhance memory for patients with impaired memory function. Patients have shown measurable improvements in short term recall and delayed recognition tasks, with gains particularly prominent in patients with baseline memory deficits. Personalized, closed loop stimulation is necessary for these positive effects to be observed.",
+        "Applications to Mental Health Issues",
+        "Using prostheses for disorders like PTSD could involve modulating the process of memory encoding. A prosthesis could enhance signals corresponding to a safety or neutral context, which might occur during therapeutic exposure or therapy sessions, helping to boost the learning process and have patients learn that environments or stimuli no longer signal danger.",
+        "The prosthesis could also help affect memory reconsolidation. This occurs when reactivated memories are stored again. In PTSD, this is particularly relevant when traumatic memories are reactivated and then stored, strengthening the fear response. Intervening during this reconsolidation window could potentially alter how the memory is stored again.",
+        "Similarly, prostheses could have positive effects on patients with depression, allowing for a boost in encoding processes and reducing the negative memory bias that defines depressive rumination.",
+        "These prostheses could also be used for conditions like Alzheimer's. As previously outlined, this technology could be used to assist or replace the encoding and retrieval functions, allowing patients to form new memories and recall past ones with more strength.",
+        "Technical Challenges",
+        "However, even though the treatment has proven its efficacy in very recent tests to some extent, there are still highly challenging obstacles to overcome. Stimulation must happen at exactly the right moment in encoding, as being even slightly off can cause issues in the process and impair memory function further. Long term stability of this treatment is also challenging, as electrodes may drift or signal quality changes. Due to the highly invasive nature of this treatment, these obstacles in long term viability are especially prominent. Therefore, non invasive configurations are also the most natural and needed next steps for these prostheses. The other path would be to develop adaptive frameworks in which the system would adapt over time to changes in the patient's brain. Implants are also subject to degradation over time, and hardware failures might cause more problems than would be solved. Stimulation over extended periods of time might also cause adverse reactions in the tissue.",
+        "Ethical Implications",
+        "While the technical limitations are prominent, one can't ignore the glaring ethical implications that would be implicit in the use of this treatment. Changing what or how someone remembers or creates new memories raises concerns about personal identity and agency. Risks around misuse, unintended changes, and data privacy issues are significant.",
+        "Memories, especially traumatic ones, are part of what defines a person. While altering these memories might be a benefit from a purely clinical standpoint, it raises questions about altering identity. Trauma sufferers are also often in vulnerable states. Ensuring fully informed consent and unbiased decisions may be difficult, yet is extremely important in these cases. The possibility remains that a patient may agree to the treatment, yet find themselves feeling less like themselves or like a piece of them is missing post treatment.",
+        "The very act of manipulating memory encoding and retrieval also raises concerns around privacy. Is it possible for researchers and physicians to have access to memories and thought processes that the patient didn't want them to see? The recording of neural spikes and patterns per person would be considered personal data, and these data must be stored safely.",
+        "My Take",
+        "The most interesting question to be answered with this technology is the question surrounding the preservation of identity. These prostheses have the capability to literally change how we perceive memories, but memories are such an integral part of who we are as humans. They define how we respond to our environment, our relationships, and dictate our actions and perspectives.",
+        "If the brain of a patient with PTSD naturally encodes threatening experiences more strongly than safe ones, or causes a person to avoid certain areas or stimuli, of course, it's not ideal, but the argument can easily be made that that encoding pattern is part of who they are as a person. Treating that symptom also changes a fundamental aspect of that patient's reality.",
+        "Clearly, alternation is what the treatment needs to do. You could view it as the person whose brain encodes things as potentially threatening is recovering their pre-trauma self, maybe this person who suffers isn't the \"real\" them.",
+        "Yet, imagine going through a traumatic incident like that in your childhood or teenage years. Spending years of your life, maybe even a decade or more, suffering from that. I'm sure patients would clinically benefit from the absence of that maladaptive behavior, but where do those years of behavior go? Is that not part of that person at that point? If so, where would we draw the line? Answering what makes someone themselves vs what makes it a symptom to be solved is not an easy feat. The technology can directly control how we turn experience into memory. Many may feel that it's taking away from their own agency, changing them in unnatural ways.",
+        "In no way does this mean that the technology shouldn't be pursued. It's truly fascinating and promising, and has huge benefits and the possibility to help thousands, if not hundreds of thousands. It just means that we ought to keep those ideas in mind and consider them while pursuing this innovation as a treatment."
+      ],
+      "sources": [
+        { "label": "ScienceDaily (2024) — Neural prosthetic device can help humans restore memory", "url": "https://www.sciencedaily.com/releases/2024/02/240213130407.htm" },
+        { "label": "Berger et al. (2012), IEEE Trans Neural Syst Rehabil Eng", "url": "https://doi.org/10.1109/TNSRE.2012.2189133" },
+        { "label": "González-Márquez (2023), Frontiers in Psychology", "url": "https://doi.org/10.3389/fpsyg.2023.1282634" },
+        { "label": "Hampson et al. (2012), Journal of Neural Engineering", "url": "https://doi.org/10.1088/1741-2560/9/5/056012" },
+        { "label": "Hampson et al. (2018), Journal of Neural Engineering", "url": "https://doi.org/10.1088/1741-2552/aaaed7" },
+        { "label": "Song et al. (2018), IEEE Trans Neural Syst Rehabil Eng", "url": "https://doi.org/10.1109/TNSRE.2016.2604423" },
+        { "label": "van der Weij & Erden (2025), Phenomenology and the Cognitive Sciences", "url": "https://doi.org/10.1007/s11097-025-10056-9" },
+        { "label": "Yang (2025), Journal of Bioethical Inquiry", "url": "https://doi.org/10.1007/s11673-024-10371-x" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "inner-speech-decoding-through-bcis-applications-for-mental-health",
+      "title": "Inner Speech Decoding through BCIs - Applications for Mental Health",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2025-09-26",
+      "readTime": "5 min read",
+      "aiSummary": "Brain-computer interfaces that decode inner speech could help monitor and treat conditions like depression and psychosis by externalizing intrusive inner voices. The approach is technically feasible in early human studies but remains limited and raises significant privacy and consent concerns.",
+      "content": [
+        "Our inner speech can often play a very significant role in the presence of mental health illnesses. Whether it's intrusive, repetitive, negative rumination in depression, or internal voices in psychosis, it's our internal voices that aid the development of these disorders and make it so incredibly difficult to recover, even with medications and therapies.",
+        "Brain computer interfaces have existed for a long time, but it is now that they are being proposed as an aid to treatment for these disorders. New interfaces that can decode this inner speech, silent sentences that run through our heads, may be able to monitor, externalize, and perhaps even intervene on these thought patterns that plague patients and keep them trapped in illness. Recent human experiments show the technical feasibility, but this treatment, arguably more than others, suffers from numerous ethical implications, as well as its due technical challenges.",
+        "What is Inner Speech?",
+        "Inner speech, also referred to as an inner monologue or self talk, is a cognitive phenomenon that most of the world possesses. Humans rehearse dialogue, replay insults, plan, and think most often using words in their heads. In reality, these \"words\" are quasi linguistic representations of words that our brain uses to express thought.",
+        "These speech loops aren't always in our control, however. In depression, these loops become negative and persistent, referred to as clinical rumination, and correlate with poorer behavior and even relapse. In psychosis, one dominant theory of auditory verbal hallucinations explains them as a failure of self-monitoring. This refers to speech that is internally generated (internal speech), but misattributed to an external source that appears as a voice.",
+        "What are BCIs?",
+        "A brain computer interface (BCI) is a system that establishes direct communication between neural activity and an external device. They typically work by detecting, then decoding neural signal patterns, whether they be electrical, metabolic, or hemodynamic (blood motion), into digital outputs that can control the actions of computers, prosthetics, or other therapeutic interventions. A BCI is an umbrella term that can refer to invasive methods, like implanted electrodes, or noninvasive methods, like EEG or fNIRS. By using a BCI to \"read\" thought patterns and inner speech, researchers and potentially therapists can deliver feedback to reshape maladaptive patterns.",
+        "How do BCIs decode speech?",
+        "Modern speech BCIs record brain activity using implanted microelectrode arrays, electrocorticography (ECoG), or scalp EEG, though the last typically yields a lower resolution. Machine learning models are trained to map patterns of the detected neural activity onto phonemes (distinct units of sound) or acoustic features, and then stitch these units into words and sentences. These implanted arrays have proven capable of decoding naturalistic speech at high rates, and more recently, research has found that internal speech can also be decoded through reading neural patterns, albeit with lower signal to noise than overt speech.",
+        "Research in inner speech decoding",
+        "Several groups reproduced inner speech decoders in multiple human participants, and published convincing demonstrations. For example, researchers reported decodable single neuron and population representations of internal speech in the supramarginal gyrus, which is a portion of the parietal lobe and plays a role in language processing. Research has also shown that implants placed over classical motor/speech regions can stream thought to speech in near real time, enabling case studies where people with long-standing paralysis can \"speak\" again through a synthesizer.",
+        "Therapeutic applications",
+        "Two of the main disorders that this new approach could help to treat are depression and psychosis, by treating or monitoring clinical rumination and auditory verbal hallucinations.",
+        "If inner speech signatures can be detected and subsequently time stamped in the case of AVHs, physicians could gain access to objective markers of when an AVH starts, how long it lasts, and what triggers it. This could improve personalized medication and behavioral interventions if one assumes the inner speech model of AVHs.",
+        "Currently, \"avatar\" and voice dialogue therapies help patients by externalizing the inner voice and allowing therapeutic negotiation between their conscious thought and inner voice. If the inner speech could be safely and consistently externalized through an avatar or therapist, patients can practice reframing or confronting their voices in real time. This therapy has already begun to show promise, but inner speech decoding could make this therapy all the more effective. By constructing a much more natural, real time expression of inner voices in patients experiencing hallucinations or even rumination, patients would be able to confront their inner voice that produces or aids maladaptive behavior with the guidance and safety of a professional by their side.",
+        "Inner speech decoding using BCIs opens the door to mobile devices that can provide real time feedback without the intervention of a therapist, making the treatment more convenient and constant. Devices that could detect escalating or negative internal voice activity could trigger calming cues, like sensory feedback, breathing prompts, or therapeutic messages. This would be particularly useful in the case of rumination, as adaptive neurofeedback could reward shifts away from rumination patterns or suggest brief CBT based reframes to a mobile device. This would be very similar to other closed loop neuromodulation devices.",
+        "Technical limitations",
+        "The technology still suffers from certain technical limitations. First and foremost, devices suffer from issues with accuracy and limited vocabularies, as devices would work using constrained vocabularies and would benefit more from patient specific training.",
+        "Additionally, the most successful, high resolution devices are the ones that rely on invasive methods, like the implanted arrays. This severely limits the number of patients this treatment can be used on.",
+        "Ethical Limitations",
+        "Ethical implications are particularly dire with this specific treatment, because privacy concerns are particularly implicit when considering creating and using devices that can essentially read your thoughts. Concerns around consent, unintended leaks, surveillance, and misuse are extremely important to address. Researchers have already begun experimenting with gating mechanisms, like imagined passwords that patients could use to consent to decoding. No matter what, extremely strict governance and oversight would be required to ensure that patients' privacy is upheld as much as possible.",
+        "Further research in this field would need to focus more on the therapeutic applications, specifically to provide sufficient evidence for clinical adoption, such as applications to AVH frequency/severity or rumination metrics."
+      ],
+      "sources": [
+        { "label": "Allen, Aleman & McGuire (2007), International Review of Psychiatry", "url": "https://doi.org/10.1080/09540260701486498" },
+        { "label": "Barber, Reniers & Upthegrove (2021), Translational Psychiatry", "url": "https://doi.org/10.1038/s41398-021-01670-7" },
+        { "label": "Craig et al. (2018) — AVATAR therapy RCT, The Lancet Psychiatry", "url": "https://doi.org/10.1016/S2215-0366(17)30427-3" },
+        { "label": "Gordon & Seth (2024), PLoS Biology", "url": "https://doi.org/10.1371/journal.pbio.3002899" },
+        { "label": "Kleeman (2024), The Guardian", "url": "https://www.theguardian.com/news/2024/oct/29/acute-psychosis-inner-voices-avatar-therapy-psychiatry" },
+        { "label": "Moffatt et al. (2020), PLoS ONE", "url": "https://doi.org/10.1371/journal.pone.0238920" },
+        { "label": "Shergill et al. (2000), American Journal of Psychiatry", "url": "https://doi.org/10.1176/appi.ajp.157.10.1691" },
+        { "label": "Wandelt et al. (2024), Nature Human Behaviour", "url": "https://doi.org/10.1038/s41562-024-01867-y" },
+        { "label": "Willett et al. (2023), Nature", "url": "https://doi.org/10.1038/s41586-023-06377-x" },
+        { "label": "Zhang et al. (2024), Scientific Data", "url": "https://doi.org/10.1038/s41597-024-04114-1" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "mm-120-a-psychedelic-medication-based-on-lsd-for-gad",
+      "title": "MM-120, a Psychedelic Medication Based on LSD for GAD",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2025-08-01",
+      "readTime": "4 min read",
+      "aiSummary": "MM-120, a controlled LSD-derived compound, has shown faster and longer-lasting anxiety relief than SSRIs in clinical trials by partially activating serotonin receptors tied to mood and threat response. Early data also hints it may help depression, PTSD, and OCD.",
+      "content": [
+        "While CBT and SSRIs are generally good treatments for generalized anxiety disorder (GAD), these treatments are not always effective and sometimes harbor physical and social side effects. In recent years, psychedelic assisted therapies have begun to gain traction. MM-120 is one such medication, a clinically optimized form of one of the most widely known and dangerous psychedelics, LSD (lysergic acid diethylamide). This treatment is currently undergoing clinical trials to determine its efficacy in treating GAD.",
+        "MM-120 is a medication developed by MindMed, a biopharmaceutical company. MM-120 is designed to be consistent and controllable compared to normal LSD, reducing the intensity of psychedelic experiences while exploiting therapeutic benefits.",
+        "How MM-120 Works",
+        "MM-120 targets the serotonin 5-HT2A receptor. MM-120 is designed for partial agonism of this receptor, partially stimulating it. The activation level of the receptor is designed to be just enough to trigger therapeutic effects without also causing the psychedelic experiences associated with traditional LSD.",
+        "The 5-HT2A receptor is present in many critical regions of the brain, like the prefrontal cortex and default mode network. Brain circuits in regions of the brain relating to decision making and emotional regulation are often extremely rigid and overactive in patients suffering from anxiety disorders. This is what causes patients to get stuck in cycles of worry and fear, as well as pessimistic thinking.",
+        "Partially activating these receptors allows for MM-120 to encourage neuroplasticity, much like many other psychedelic therapies. By attempting to reset these brain circuits while also promoting neuroplasticity, MM-120 allows for these maladaptive patterns to be replaced with beneficial ones.",
+        "In addition to the 5-HT2A receptor, MM-120 also acts on the serotonin 5-HT1A receptor. This receptor is involved in calming the nervous system and reducing stress response. When activated, this receptor can reduce the release of stress hormones and help to regulate the amygdala. This part of the brain tends to be overactive in patients with anxiety disorders, leading to heightened fear responses and threat reactions.",
+        "By targeting both of these, MM-120 is more effective in treating multiple aspects of anxiety. Not only is it able to restructure parts of the brain that are involved in worry and pessimistic thought, but it is also able to reduce stress, fear, and threat response. These changes are also able to be made more permanently compared to some other medications, as MM-120 promotes neuroplasticity while performing these functions as well.",
+        "Clinical Trials and Research",
+        "MM-120 has proven its efficacy through thorough clinical trials. The drug is capable of consistently reducing anxiety symptoms faster than other medications. Studies report that the effects of MM-120 can be seen within days. In comparison with other anxiety medications like SSRIs, which can take weeks of frequent use to be effective, MM-120 is much faster. While acting faster, MM-120 also proves to last much longer, up to several months with only one dose. This could not only reduce the frequency of treatment, but in turn reduce the cost of treatment, while significantly improving anxiety severity. All this is achievable without severe adverse side effects.",
+        "Toleration",
+        "During clinical trials MM-120 has proved itself to be well tolerated. Most adverse side effects were reported to be moderate and transient, mostly occurring on the day of dosage alone. They are as expected and diminished shortly after administration of the drug.",
+        "MM-120 may be able to offer a much faster onset of relief from anxiety symptoms compared to other medications like SSRIs. Additionally, the effect that dosage entails has been shown to last much longer, up to several months, which would reduce the need for frequent medication and possibly reduce the cost of treatment as well.",
+        "What else can MM-120 Do?",
+        "As MM-120 continues to prove its efficacy in GAD treatment, attention is being placed on what other conditions it may be able to help treat. MDD, PTSD, and OCD are among the disorders being discussed. MM-120 has shown, through very early data, that it may be applicable to reducing depressive symptoms. MM-120's neuroplasticity promoting effects could help restructure maladaptive fear circuits, as it does for anxiety conditions, for patients suffering from PTSD. Similarly, patients who suffer from acute OCD often have extremely rigid circuits, similar to those in patients with anxiety, for which MM-120 has already shown promise in treating."
+      ],
+      "sources": [
+        { "label": "Grieco et al. (2022), Journal of Neuroscience", "url": "https://doi.org/10.1523/JNEUROSCI.1121-22.2022" },
+        { "label": "Cavarra et al. (2022), Frontiers in Psychology", "url": "https://doi.org/10.3389/fpsyg.2022.887255" },
+        { "label": "Garcia-Garcia, Newman-Tancredi & Leonardo (2014), Psychopharmacology", "url": "https://doi.org/10.1007/s00213-013-3389-x" },
+        { "label": "Mind Medicine, Inc. — Dose-Finding Study of MM-120 (NCT05407064)", "url": "https://clinicaltrials.gov/study/NCT05407064" },
+        { "label": "Mind Medicine, Inc. — Phase 3 Trial of MM120, Voyage (NCT06741228)", "url": "https://clinicaltrials.gov/study/NCT06741228" },
+        { "label": "Mind Medicine, Inc. — Phase 3 Trial of MM120, Panorama (NCT06809595)", "url": "https://clinicaltrials.gov/study/NCT06809595" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "eeg-tms-closed-loop-system-with-baynesian-optimization",
+      "title": "EEG + TMS Closed Loop System with Baynesian Optimization",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2025-07-18",
+      "readTime": "4 min read",
+      "aiSummary": "Combining EEG monitoring with TMS stimulation, tuned in real time through Bayesian optimization, could make magnetic brain stimulation more personalized and effective for depression, OCD, and other conditions. Real-time signal noise and heavy computational demands remain key obstacles.",
+      "content": [
+        "Transcranial magnetic stimulation (TMS) is a non invasive, FDA approved therapy for MDD, OCD, and other psychiatric disorders. Yet, TMS does not always work for everyone, mostly due to the natural variability between patients.",
+        "A closed loop system can be the answer to increasing the amount of patients who can benefit from TMS. By adjusting stimulation in response to brain activity in real time, the treatment can be more effectively personalized. This new system combines electroencephalography, more commonly known as EEG, with TMS. It uses an optimization technique called Bayesian optimization to personalize stimulation.",
+        "In traditional TMS treatment, stimulation is actually personalized to some degree. However, this is usually just based on anatomical data. These personalized settings are applied in a pre set pattern and remains the same throughout the treatment. However, one issue with this approach lies in the nature of psychological conditions. Depression, anxiety, conditions like these fluctuate throughout the day and vary from day to day, meaning that one stimulation profile may not fit at all treatment times.",
+        "Bayesian Optimization",
+        "Bayesian optimization is a probabilistic model approach to finding the best input for a function, especially useful for highly complex functions. In this new closed loop system, it can be used to determine the best configuration of frequency, intensity, timing, and more that produces the desired outcome for each patient in real time.",
+        "Mental Health Application",
+        "In the treatment of psychological conditions, the combination of EEG and TMS technology along with Bayesian optimization can increase how effective the treatment is for all patients. Not only can this mean that patients who previously did not respond well to TMS may respond well to this new approach, but existing patients might require fewer or less frequent treatment sessions. By accounting for fluctuations by adjusting in real time, this closed loop system offers more active treatment, which also lends to reducing side effects. More precise control over stimulation can reduce adverse effects, discomfort, and over or understimulation.",
+        "Additionally, even though this system is commonly thought of in terms of depression and anxiety treatment, it can be very viable for other psychological conditions as well. Targeting the orbitofrontal cortex could help to treat and manage more serious OCD. EEG could detect intrusive thought patterns in PTSD patients, while TMS stimulates the amygdala, hippocampus, and medial prefrontal cortex to moderate fear response. The system could also track pain related cortical patterns in patients suffering from chronic pain and fibromyalgia, and apply stimulation accordingly to disrupt pain processing loops. EEG markers of craving or attentional bias could also be used in conjunction with TMS to try to prevent relapse of addiction disorders.",
+        "Challenges with the combination of EEG, TMS, and Baynesian Optimization",
+        "As with most new technology, this approach still comes with many obstacles to overcome. Firstly, TMS sometimes creates strong artifacts in EEG recording, which could make the EEG input less reliable. For this to be dealt with properly, these artifacts must be cleaned in real time for the loop to function. Real time denoising is extremely difficult, but progress has been made using techniques like signal-space projection and template subtraction. Bayesian optimization is also computationally taxing, especially when run in real time. Additionally, larger scale trials, especially on more serious psychiatric populations, must be conducted, as well as long term outcome measurement.",
+        "Future Improvements",
+        "There are many ways to improve this new system as well. It is plausible to combine EEG with a technology like functional near-infrared spectroscopy (fNIRS). This technology is also a non invasive imaging technique, measuring brain activity by detecting changes in blood flow and oxygenation, while EEG measures electrical activity. Combining the two could allow for a much more detailed real time reading of brain activity. While far in the future, home based devices could greatly increase access to this more effective system as well. The advancement in chip technology can also allow for faster and more accurate cleansing of artifacts and higher computational power for Baynesian optimization, potentially extending how much value the system could offer."
+      ],
+      "sources": [
+        { "label": "George et al. (2023), Brain Stimulation", "url": "https://doi.org/10.1016/j.brs.2023.11.010" },
+        { "label": "Zrenner et al. (2018), Brain Stimulation", "url": "https://doi.org/10.1016/j.brs.2017.11.016" },
+        { "label": "Zrenner & Ziemann (2024), Biological Psychiatry", "url": "https://doi.org/10.1016/j.biopsych.2023.09.014" },
+        { "label": "Somani & Kar (2019), General Psychiatry", "url": "https://doi.org/10.1136/gpsych-2019-100074" },
+        { "label": "Robertson & Mortimer (2022), Journal of Affective Disorders", "url": "https://doi.org/10.1016/j.jad.2022.04.076" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "transcranial-focused-ultrasound-applications-to-anxiety-and-trauma-disorders",
+      "title": "Transcranial Focused Ultrasound & Applications to Anxiety and Trauma Disorders",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2025-07-04",
+      "readTime": "4 min read",
+      "aiSummary": "Transcranial focused ultrasound aimed at the amygdala reduced anxiety symptoms with minimal side effects in two small pilot trials. It's an early but promising noninvasive option for anxiety and trauma disorders that don't respond fully to SSRIs or therapy.",
+      "content": [
+        "Transcranial Focused Ultrasound, known as tFUS, is a powerful and precise technology that could have potential applications across psychology and mental health. If used, the tFUS system would target the amygdala. This structure is within the temporal lobe, and performs emotional regulation and has connections to anxiety disorders. While Selective Serotonin Reuptake Inhibitors (SSRIs) and cognitive behavioral therapy (CBT) are generally used for the treatment of anxiety disorders, many patients are resistant to this treatment. Recent trials suggest that tFUS as a noninvasive option for patients who do not respond fully to CBT, SSRIs, or other treatments.",
+        "The Amygdala",
+        "The Amygdala plays a very involved role in processing emotions, particularly fear and aggression. It processes emotional stimuli, especially those related to threat detection. In patients suffering from generalized anxiety disorder, PTSD, and other related anxiety disorders, imaging consistently shows hyperactivation in this region of the brain. Because of this, targeting the amygdala directly is one of the main goals of psychological interventions related to these disorders. However, doing so safely is very difficult and often requires invasive methods. Deep Brain Stimulation (DBS) is one of these methods, which generally involves surgically implanting electrodes in specific regions to deliver electrical impulses for mood regulation.",
+        "What is Transcranial Focused Ultrasound (tFUS)?",
+        "tFUS uses acoustic waves that are low intensity and low frequency. These low intensity waves are in a range that has the ability to excite or inhibit neuronal activity.",
+        "The selling point of tFUS compared to other neuromodulation methods like Transcranial Magnetic Stimulation (TMS) is its ability to reach the same deep brain areas without posing a risk to surrounding tissue. The spatial resolution it can produce is on the millimeter scale, which can allow researchers and physicians to modulate highly localized regions of the brain, like the amygdala, with increased precision.",
+        "How tFUS works is by sending ultrasound waves through the skull using a transducer, which are guided by individual MRI data. These waves can target specific neural substrates. This ability makes it especially effective for treating conditions like anxiety, which are associated with increased activity in distinct, well defined brain structures.",
+        "How these ultrasound waves are able to modulate neuronal activity is not entirely defined. The leading hypothesis suggests that tFUS mechanically displaces neuronal membranes by using acoustic pressure. This affects ion channel gating. This mechanical effect may change neuronal excitability in the targeted regions.",
+        "It is also suggested that tFUS influences astrocyte activity. Astrocytes are glial cells in the brain and spinal cord that perform many important functions, one of which is being involved in neurotransmitter uptake and release, and as such, can influence neuronal activity by releasing signaling molecules. tFUS may dampen hyperactive threat processing pathways, which are characteristic of anxiety disorders, which can allow for a rebalancing of emotional reactivity.",
+        "Additionally, the effects of tFUS appear to be reversible. This means that it can be used extensively without permanently altering brain structure.",
+        "Evidence of Efficacy in Trials",
+        "One study in 2023 applied tFUS to the right amygdala over 8 weekly, 10 minute long sessions. Researchers measured outcomes using the Hamilton Anxiety Inventory and Beck Anxiety Inventory. Afterwards, patients were asked to report their perceived change in clinical status using the Patient Global Impression - Improvement scale. The study showed that all 25 participants were able to tolerate treatment without notable side effects. Results from the HAM-A and BAI inventory tests showed significant decrease in anxiety through reduced amygdala reactivity to threat-related stimuli. 16 out of 25 participants indicated clinically significant benefits on their PGI-I scores.",
+        "Another study published in April of 2025 used MRI guided tFUS to the left amygdala. Researchers found that repetitive tFUS was well tolerated with no serious adverse events, and significant reductions on the Mood and Anxiety Symptom Questionnaire General Distress subscale. This study also reported that patients had reduced amygdala activation to emotional stimuli.",
+        "While sample sizes were small and more trials are needed, these studies show that tFUS can be a viable, noninvasive option to help treat GAD, PTSD, and other anxiety and trauma related disorders. With minimal side effects and effective treatment, tFUS could be a very effective supplement to existing treatments, if not an effective treatment on its own."
+      ],
+      "sources": [
+        { "label": "Barksdale et al. (2025), Molecular Psychiatry", "url": "https://doi.org/10.1038/s41380-025-03033-w" },
+        { "label": "Mahdavi et al. (2023), Journal of Psychiatric Research", "url": "https://doi.org/10.1016/j.jpsychires.2023.10.039" },
+        { "label": "Folloni et al. (2019), Neuron", "url": "https://doi.org/10.1016/j.neuron.2019.01.019" },
+        { "label": "Sanguinetti et al. (2020), Frontiers in Human Neuroscience", "url": "https://doi.org/10.3389/fnhum.2020.00052" },
+        { "label": "Keihani et al. (2024), Brain Sciences", "url": "https://doi.org/10.3390/brainsci14111095" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "ibogaine-from-illegal-to-miracle",
+      "title": "Ibogaine - From Illegal to Miracle",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2025-06-20",
+      "readTime": "3 min read",
+      "aiSummary": "Ibogaine, a Schedule 1 psychedelic now being studied under new state and federal research allowances, shows potential to rapidly reduce addiction and trauma symptoms by altering dopamine and serotonin pathways. It also carries serious cardiac risks that require close medical supervision.",
+      "content": [
+        "From depression to PTSD to intense addiction, current treatments often fall short. A plant based psychedelic called Ibogaine, however, touts the ability to change how the brain works in ways other treatments can't.",
+        "Ibogaine is an alkaloid derived from the iboga shrub, native to West Africa. The psychedelic is currently federally illegal within the U.S., classified as a Schedule 1 Substance. However, Senate Bill 2308 authorized partnerships between universities, hospitals, and drug developers to conduct trials.",
+        "Ibogaine and addiction",
+        "The GDNF protein can help to regenerate dopaminergic neurons, and has the capacity to reverse alcohol and opioid seeking behavior in animals. Ibogaine dramatically increases the expression of the GDNF gene in the midbrain, specifically in the ventral tegmental area (VTA). This increases the presence of this protein, and potentially the associated effects on neurons and behavior.",
+        "If administered properly, Ibogaine has the potential to eliminate withdrawal symptoms within hours and provide sharp reductions in addiction behavior. It may have the ability to rewire reward pathways in the brain, and permanently fix the changes addiction can cause to suffering patients.",
+        "Ibogaine and Emotion",
+        "Similar to ketamine, Ibogaine antagonizes NMDA receptors, which disrupts memory reconsolidation. While usually a very undesirable result, this may allow patients to reprocess trauma or addictive cues without emotional overload from their memories.",
+        "Ibogaine also binds to Sigma-1 receptors, which regulate neuroplasticity and emotional regulation. Its activation is associated with emotional clarity and introspective awareness, which are central to Ibogaine's therapeutic effects. It often allows patients to reflect on past experiences without getting overwhelmed.",
+        "Ibogaine also often induces a lucid, dreamlike consciousness lasting between 8 and 24 hours. While suppressing normal REM sleep rhythms, the experience resembles an extended REM state, in which patients can reflect and revisit memories and feelings. Combined with the emotional regulation Ibogaine provides, these hours can provide significant emotional relief and introspection. Elevated dopamine and serotonin levels also allow for these periods to be as productive as possible by promoting emotional resilience, creating a very potent therapeutic window. The changes Ibogaine makes to the expression of GDNF also allow for these changes to be permanent, promoting plasticity.",
+        "Ibogaine and Its Dangers",
+        "Ibogaine is an extremely dangerous drug. Therefore, it should only ever be used in a highly controlled, medically supervised setting. Any mistakes with treatment can lead to intense effects, ranging from ataxia, nausea, and insomnia, to extremely prolonged cognitive fog, intense psychological distress during treatment and sleep.",
+        "However, it is the cardiovascular concerns that make ibogaine truly dangerous. Ibogaine is pro-arrhythmic, meaning it can badly disrupt the rhythm of the heart. Ibogaine can cause QT interval prolongation, meaning the heart contracts and relaxes much slower. This can lead to Torsades de Pointes, which is a life-threatening form of ventricular tachycardia. It is particularly dangerous for those who have preexisting heart conditions or electrolyte imbalances, as it has the capacity to cause sudden cardiac arrest in such patients.",
+        "For these reasons, Ibogaine trials require a pre-dose EKG, electrolyte and liver function tests, continuous cardiac telemetry, and emergency staff and medications to be on hand.",
+        "Ibogaine carries immense risk, but promises even more potential reward. If administered properly, Ibogaine could be the next big treatment for disorders ranging from depression to addiction. Texas recently signed a bill allowing Ibogaine to be studied and tested in 2025, and the possibilities are very promising."
+      ],
+      "sources": [
+        { "label": "Marton et al. (2019), Frontiers in Pharmacology", "url": "https://doi.org/10.3389/fphar.2019.00193" },
+        { "label": "González et al. (2018), Frontiers in Pharmacology", "url": "https://doi.org/10.3389/fphar.2018.00374" },
+        { "label": "Ona et al. (2023), Journal of Psychopharmacology", "url": "https://doi.org/10.1177/02698811231200882" },
+        { "label": "Cherian et al. (2024), Nature Medicine", "url": "https://doi.org/10.1038/s41591-023-02705-w" },
+        { "label": "He et al. (2005), Journal of Neuroscience", "url": "https://doi.org/10.1523/JNEUROSCI.3959-04.2005" },
+        { "label": "Governor Abbott signs Ibogaine treatment research law at Texas Capitol", "url": "https://gov.texas.gov/news/post/governor-abbott-signs-ibogaine-treatment-research-law-at-texas-capitol" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "home-based-transcranial-direct-current-stimulation-mdd-gad",
+      "title": "Home-Based Transcranial Direct Current Stimulation - MDD & GAD",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2025-06-06",
+      "readTime": "3 min read",
+      "aiSummary": "A fully remote trial of at-home, app-guided transcranial direct current stimulation found over half of patients with treatment-resistant depression improved after six weeks. It points to a more accessible alternative to clinic-based brain stimulation.",
+      "content": [
+        "Major Depressive Disorder (MDD) and Generalized Anxiety Disorder (GAD) are two of the most widespread and debilitating mental health conditions. They often persist despite therapy or medication, and can leave patients stuck in a cycle of emotional distress, cognitive fatigue, and hopelessness.",
+        "From a neuroscience standpoint, these disorders are deeply rooted in the brain's ability to regulate emotion, process reward, and maintain healthy attention networks. A key player is the prefrontal cortex, a region often found to be underactive in people with depression and anxiety. This underactivity contributes to symptoms like low motivation, rumination, and emotional numbness.",
+        "A promising new solution has emerged in 2024 that applies transcranial direct current stimulation (tDCS) to treat these disorders, not in a clinic, but at home, through wearable, remotely supervised technology.",
+        "What is tDCS?",
+        "tDCS is a non-invasive brain stimulation method that delivers a low-intensity electrical current through two electrodes placed on the scalp. These currents are designed to modulate the activity of specific brain regions, most often the dorsolateral prefrontal cortex (DLPFC) for mental health applications like depression. tDCS alters the resting membrane potential of neurons, using two cathodes to either inhibit or excite neurons.",
+        "In people with depression or anxiety, the DLPFC tends to be underactive, leading to diminished emotional regulation and impaired decision-making. tDCS increases neuronal excitability in this region, essentially making it easier for the brain to activate and maintain healthy function.",
+        "The Shift to At-Home Treatment",
+        "While tDCS has been around for over a decade, it was in 2024 that a big leap was made. For the first time, home-based tDCS kits received approval for use under remote medical supervision. These kits pair with smartphone apps that guide users through electrode placement, stimulation sessions, and progress tracking, while data is monitored by licensed clinicians.",
+        "In a recent trial, patients with treatment-resistant depression were provided with a six-week, home-based tDCS protocol. By the end of the study, over 50% of participants showed clinical improvement, and 30% entered full remission. Sessions were brief, only around 30 minutes a day, while the side effects were minimal, usually limited to scalp tingling or mild fatigue.",
+        "This level of accessibility to an already extremely advanced and promising technology could revolutionize how depression and anxiety are treated. It is particularly meaningful for those who struggle with energy, transportation, or scheduling. Patients with severe mental illnesses would greatly benefit from the increased accessibility, and those comorbid with disabling conditions would as well.",
+        "Personalization and Neuroplasticity",
+        "Personalization is a growing expectation and necessity in the treatment of mental illness, as with physical illness. The most recent iterations of tDCS are designed to adapt their stimulation protocols over time, based on mood (user-reported), measurable cognitive changes, and wearable bodily data, like sleep or heart rate. All of this allows for the mental health intervention to be much more effective, while also growing in efficacy over time.",
+        "Regular sessions are believed to encourage neuroplastic changes, meaning that tDCS can promote permanent changes in how the brain works, rewiring circuits involved in motivation, emotion regulation, and cognitive flexibility. In anxiety disorders, stimulation protocols can be adjusted to target hyperactive circuits involved in the worrying response, offering a calming effect over time without medication.",
+        "As more data is gathered, the system will improve, refining stimulation patterns, ideal session timing, and even pairing with behavioral nudges or therapeutic content. This opens the door for broader applications in other mental disorders, from OCD to bipolar depression, where dysfunction in the prefrontal cortex plays a key role."
+      ],
+      "sources": [
+        { "label": "Woodham et al. (2025), Nature Medicine", "url": "https://doi.org/10.1038/s41591-024-03305-y" },
+        { "label": "Lo et al. (2025), Journal of Clinical Medicine", "url": "https://doi.org/10.3390/jcm14093152" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "the-combination-of-multimodal-llms-and-rns-neural-implants",
+      "title": "The Combination of Multimodal LLMs and RNS Neural Implants",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2025-04-11",
+      "readTime": "3 min read",
+      "aiSummary": "A proposed dual-loop system pairs an implanted neurostimulator that dampens abnormal amygdala activity with AI-enabled wearables that detect and defuse PTSD triggers in real time. The concept combines internal and external interventions for more personalized treatment.",
+      "content": [
+        "Post-Traumatic Stress Disorder (PTSD) is a severe mental health condition triggered by traumatic events, whether through direct experience or witnessing something distressing.",
+        "From a neuroscience standpoint, PTSD disrupts the brain's emotional processing and memory systems, particularly affecting the amygdala, hippocampus, and prefrontal cortex. The amygdala, involved in threat detection and fear response, becomes hyperactive. The prefrontal cortex, which modulates decision-making and emotion regulation, typically shows reduced activity. The hippocampus, which is essential for memory consolidation and contextual awareness, can exhibit structural shrinkage due to trauma-related stress hormones, which makes it hard for one to tell the difference between present-day and past trauma.",
+        "Very recently, a new solution has emerged that combines an internal brain stimulation system and an external audiovisual feedback system through the use of an RNS neural implant and a collection of AI-enabled wearables.",
+        "The First Loop",
+        "The first loop is a Responsive Neurostimulation brain implant that specifically targets theta oscillations in the amygdala. Normally, these waves support functions like memory encoding, emotional learning, and synchronization with other parts of the brain.",
+        "However, with PTSD, these oscillations fire excessively and in rigid patterns, which overamplify the brain's fear response. PTSD also impairs the synchronization function of these waves, which causes the prefrontal cortex to be unable to suppress these excess fear responses, as well as difficulty distinguishing between past traumatic memories and current events.",
+        "The implant monitors amygdala activity and stimulates the amygdala on demand once it detects abnormal theta oscillations. It delivers tuned electrical pulses meant to normalize the oscillations. Most brain stimulation systems operate continuously, but this closed-loop device monitors activity in real-time and only provides stimulation when detecting abnormal oscillations.",
+        "The Second Loop",
+        "Meanwhile, AI-enabled wearable devices, which could include smart glasses, watches, phones, etc., collect environmental and physiological data. The system is meant to collect cues such as heart rate variability, galvanic skin response, and even ambient sound. By using large language models (LLMs), the system contextualizes this information and uses it to identify patterns and PTSD triggers, so that in the future, it can preemptively identify these triggers and deliver calming sensory cues.",
+        "The wearable system would include sources of intervention, primarily visual and auditory. Via displays through smart glasses, or audio cues through connected earbuds or speakers, calming cues can be delivered, such as calming music or nature sounds, pre-recorded messages from a therapist, brief mindfulness instructions, an image of a safe location or person, or even just darkening the scene to avoid overstimulation. This loop seeks to perform established PTSD grounding techniques automatically when detecting a possible trigger in the environment.",
+        "The Dual Loop System",
+        "These two loops, while aiming for different treatments, are meant to work together. By approaching the pathological response from two different directions, the result is almost twice as effective. While the wearable system reduces or suppresses the external trigger's impact, the RNS implant directly dampens the brain's pathological response, effectively preventing panic attacks or dissociation. The connection between the two loops allows them to work in sync. Additionally, the LLM can learn from the logged data from both loops and perform better in the future, allowing for extremely personalized treatment.",
+        "The integration of AI in medical technology, particularly in psychiatric treatment, is becoming more and more viable and effective. Personalized treatment is extremely beneficial when it comes to mental disorders like these, and the dual loop system is proof of this. This technology is extremely promising for the future treatment of PTSD patients, and the concepts involved could help to inform the treatment of many other disorders, particularly those that involve environmental triggers."
+      ],
+      "sources": [
+        { "label": "Bremner (2006), Dialogues in Clinical Neuroscience", "url": "https://doi.org/10.31887/DCNS.2006.8.4/jbremner" },
+        { "label": "Win & Wen (2025) — Dual-Loop System for Neuromodulation and Naturalistic Neuralbehavioral Research", "url": "https://arxiv.org/pdf/2503.12334" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "tpbm-for-mdd-and-anxiety-treatment-new-advancements-in-wearable-accessibility",
+      "title": "tPBM for MDD and Anxiety Treatment - New Advancements in Wearable Accessibility",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2025-03-14",
+      "readTime": "3 min read",
+      "aiSummary": "A wearable near-infrared light headband (tPBM) produced a 55% reduction in depressive symptoms and a 48% remission rate in a 120-patient trial. It offers a more accessible home-based alternative to clinic-based photobiomodulation devices.",
+      "content": [
+        "Transcranial photobiomodulation is an existing technology used for MDD and anxiety disorder treatment. It was originally created to treat neurodegenerative diseases and cognitive enhancement, though it has shown promise for treating depression and anxiety.",
+        "As is the problem with many emerging devices, tPBM suffers from the problem of having limited access. Large, costly equipment that requires a commute to access. However, recent research shows the efficacy of a wearable tPBM headband.",
+        "What Is tPBM?",
+        "Transcranial Photobiomodulation uses low level, near infrared light to stimulate brain function. tPBM targets cytochrome c oxidase, which is an enzyme within mitochondria that contributes to cellular respiration and energy production. tPBM increases ATP production, as well as reduces inflammation and modulates nitric oxide release, which can affect blood flow. These effects all boost the overall neuronal metabolism, promote neuroplasticity, and improve blood flow.",
+        "This enhanced ATP production can help to meet increased energy needs from stressed or dysfunctional neurons, while the reduction of inflammation helps to alleviate depressive symptoms, and the promotion of neuroplasticity makes it easier for these changes to occur and stay permanent.",
+        "Transcranial photobiomodulation (tPBM) works by using low level, near infrared light, typically in the 810 to 1064 nanometer range. The device sends these waves through the scalp and skull to reach brain tissue, where it is able to interact with cells' mitochondria. Specifically, tPBM targets an enzyme complex located in the electron transport chain of a cell's mitochondria called cytochrome-c oxidase (CCO). By affecting this enzyme complex, tPBM aims to boost ATP production and therefore increase the availability of cellular energy. Additionally, tPBM increases nitric oxide release, promoting vasodilation and therefore increasing cerebral blood flow and oxygen delivery.",
+        "The dorsolateral prefrontal cortex (DLPFC) is often underactive in patients with MDD. The increase in ATP production provides neurons in underactive mood regulation circuits, most notably the DLPFC, with much needed energy to sustain plasticity and function, and is aided by the increase in oxygen and glucose supply from the aforementioned boost in blood flow.",
+        "Neuroinflammation is also commonly linked to depression as a large contributor. tPBM helps to reduce inflammatory cytokines in the brain, reducing neuroinflammation. All together, tPBM helps to normalize brain activity and function, leading to reductions in depressive symptoms like low mood and cognitive impairment.",
+        "A frequent, sustained, low intensity application of these light waves allows for a build up of neuromodulatory effects without the need for clinical supervision.",
+        "Wearable tPBM",
+        "Evidence for the efficacy of wearable tPBM emerged very recently. A study tested 120 patients diagnosed with MDD, with daily use for 20 minutes over a 6 week treatment period. The device emitted 810 nanometer near infrared light over bilateral prefrontal regions. Using the MADRS depression scale, researchers found a 55% percent reduction in depressive symptoms and behavior, along with a 48% remission rate. Anxiety symptoms were also reported to improve, along with minimal adverse effects.",
+        "The creation of wearable tPBM allows for a new, home based, extremely accessible treatment for depression, solving barriers for patients who may live farther away from clinics or have mobility issues. Options for patients who do not have access to adequate resources for intensive, clinic based treatment are becoming more and more important. Minimal side effects show that tPBM is extremely tolerable, while improvements follow a reasonable time frame of a few weeks to see extensive results."
+      ],
+      "sources": [
+        { "label": "Ji et al. (2024), Frontiers in Psychiatry", "url": "https://doi.org/10.3389/fpsyt.2023.1267415" },
+        { "label": "Cassano et al. (2022), Photonics", "url": "https://doi.org/10.3390/photonics9080507" },
+        { "label": "Guu et al. (2025), Journal of Affective Disorders", "url": "https://doi.org/10.1016/j.jad.2024.12.065" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "transcutaneous-auricular-vagus-nerve-stimulation-tavns-novel-treatment-for-post-stroke-depressio",
+      "title": "Transcutaneous Auricular Vagus Nerve Stimulation (taVNS) - Novel Treatment for Post Stroke Depression",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2025-02-14",
+      "readTime": "4 min read",
+      "aiSummary": "Transcutaneous auricular vagus nerve stimulation significantly reduced depression scores and improved daily functioning in an 80-patient trial of stroke survivors. It suggests a noninvasive option for a form of depression that often resists standard antidepressants.",
+      "content": [
+        "Patients who go through a stroke have already gone through one of the scariest, most deadly conditions in medicine. Unfortunately, however, around a third of these survivors suffer from post-stroke depression. This can significantly hurt their recovery and rehabilitation. While SSRIs and psychotherapy are the go to remedies for depression, these options work even less effectively in stroke survivor populations. Post stroke depression is different from normal depression as it occurs after a brain injury, which involves neurological impairment as well as an inflammatory environment within the brain that is unique. Standard treatments often have very limited efficacy in PSD.",
+        "However, taVNS might be the solution for this subset of mental health patients. Transcutaneous auricular vagus nerve stimulation, known as taVNS, is one of many possible treatments for major depressive disorder. Recent research particularly shows taVNS's efficacy in mood regulation and improvements in depressive symptoms while boasting high tolerance.",
+        "The Vagus Nerve",
+        "The vagus nerve is the longest cranial nerve, and it extends from the brainstem, through the neck and thorax, and down to the abdomen. It is very important for autonomic nervous system regulation, specifically the parasympathetic branch. This branch is commonly known for the \"rest and digest\" functions as opposed to the \"fight or flight\" functions from the sympathetic branch. This nerve influences neurotransmitter systems, like the release and activity of serotonin and norepinephrine. These neurotransmitters are often the target of many antidepressants, as they are very important for emotional regulation.",
+        "Particularly in cases of brain injury, neuroinflammation is recognized as a contributing physical factor for depression. The vagus nerve, when activated, reduces the release of pro inflammatory cytokines, effectively reducing neuroinflammation. By upregulating factors like the brain derived neurotrophic factor (BDNF), it can also help to promote neuroplasticity, making it easier for the brain to change and retain positive structures.",
+        "How taVNS Works",
+        "The auricular branch of the vagus nerve is located in the outer ear. taVNS activates this branch, often through an electrode worn in the ear. This provides stimulation to nerve fibers, similarly to how invasive VNS works, but without surgery.",
+        "When taVNS activates this nerve, a signal is sent up to the brain stem to engage the NTS, the nucleus tractus solitarius. This structure acts as a sort of hub for sensory information from internal organs to be processed in the brain by sending information to different regions. As a result of this signal, the NTS modulates several other structures, but the most notable are the locus coeruleus, which is the main source of norepinephrine in the brain, and the dorsal raphe nucleus, an important source of serotonin and therefore involved in mood regulation. This has a similar result to SSRIs, but uses direct nerve activation to achieve the result.",
+        "In general, when applied to depression treatment, taVNS is able to boost activity in brain areas involved in emotional regulation. taVNS has been used in RCTs to reduce depressive symptoms in MDD already, and also touts a strong safety record.",
+        "taVNS Specifically for Post Stroke Depression",
+        "taVNS specifically may have some advantages compared to other treatments. Firstly, activation of the vagal nerve is known to inhibit inflammatory cytokines, which are one of the contributors to the development of PSD. While stroke survivors often experience autonomic dysregulation, taVNS is able to increase the level of parasympathetic nervous system activity, known as parasympathetic tone.",
+        "Emerging research is proving these assumptions and connections true. By applying taVNS daily using ear electrodes, 80 stroke survivors with clinical depression showed significant reductions in depression scores using the HAMD-17. They also demonstrated improved function measured by the Barthel Index. Markers of neuroplasticity and serotonin signaling also increased with the taVNS group. All these amazing results were seen alongside minimal, transient side effects, showing that the treatment was well tolerated.",
+        "Not only is taVNS non-invasive and well tolerable, it provides some specific benefits for patients with PSD. By being able to improve both depressive symptoms and daily functioning, separate stroke rehabilitation is easier for patients to get through. The quick onset of effects also makes it ideal for stroke survivors who may be more medically fragile. taVNS is also small and portable, making treatment much more accessible and convenient, especially as treatment is often needed to be on a daily basis."
+      ],
+      "sources": [
+        { "label": "Liu et al. (2024), Journal of Affective Disorders", "url": "https://doi.org/10.1016/j.jad.2024.03.005" },
+        { "label": "Tan et al. (2023), Journal of Affective Disorders", "url": "https://doi.org/10.1016/j.jad.2023.05.048" },
+        { "label": "Guo et al. (2024), Brain Sciences", "url": "https://doi.org/10.3390/brainsci14090945" },
+        { "label": "Parente et al. (2024), International Journal of Neuropsychopharmacology", "url": "https://doi.org/10.1093/ijnp/pyad058" },
+        { "label": "Grimonprez et al. (2015), Neuroscience & Biobehavioral Reviews", "url": "https://doi.org/10.1016/j.neubiorev.2015.06.019" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "aitbs-for-treatment-resistant-bipolar-depression",
+      "title": "aiTBS for Treatment Resistant Bipolar Depression",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2024-11-22",
+      "readTime": "2 min read",
+      "aiSummary": "An accelerated theta-burst TMS protocol delivered over just five days produced significant, lasting reductions in treatment-resistant bipolar depression in a small fMRI-guided trial. It condenses a treatment that normally takes five or more weeks.",
+      "content": [
+        "Patients who suffer from Bipolar Disorder (BD) spend most of their time within a depressive episode (reaching 72% in Bipolar I and 81% in Bipolar II). Traditional antidepressants and mood medication fail to treat bipolar depression effectively, especially so for patients with treatment resistant bipolar depression.",
+        "TMS (Transcranial Magnetic Stimulation) is a popular and promising technique, yet can be a very draining therapy for many patients. While aiTBS in its current state is much more frequent, it offers much faster treatment while being more effective.",
+        "Bipolar vs Unipolar (regular) Depression",
+        "Bipolar depression is extremely different from normal depression, meaning treatment must be specific. While normal depression is typically characterized by a consistent low mood and negative thought patterns, which lead to more symptoms, bipolar depression incurs these same effects alongside manic or hypomanic episodes. This makes treatment much more risky, as standard antidepressants or technological treatments risk triggering manic switches or rapid cycling in bipolar patients. Bipolar depression also shows much greater dysregulation in certain functions of the brain compared to already increased dysregulation found in depression, like reward processing, circadian rhythm control, intracellular signaling pathways, etc. Bipolar depression also often has an earlier onset as well as more frequent recurrence.",
+        "aiTBS",
+        "Accelerated intermittent theta-burst stimulation (aiTBS) is a type of TMS protocol. It delivers short bursts of stimulation multiple times a day, meant to mimic theta wave activity. This theta wave activity is known to enhance neuroplasticity as well as dramatically reduce prospective treatment time compared to normal intermittent theta burst stimulation or repetitive transcranial magnetic stimulation. aiTBS sessions are only a few minutes long, but up to 10 sessions would be performed per day, equalling around 90,000 pulses within a typical 5 day treatment window. The best targets include the dorsolateral prefrontal cortex, though using fMRI to guide and personalize stimulation sites might offer greater efficacy.",
+        "RCT Proof",
+        "A clinical trial recently completed in February of 2024 tested aiTBS in treating treatment resistant bipolar depression in 24 patients with 10 sessions a day over a 5 day treatment window. Researchers targeted the left DLPFC, guided by fMRI. Results showed that depressive symptoms and behaviors dropped significantly using the MADRS depression scale, as well as continued improvement after 1 month without the treatment.",
+        "What Makes aiTBS different",
+        "The reason aiTBS may be the answer lies in the high dosage and condensed time frame. This helps to accelerate treatment while holding all the benefits of traditional iTBS, meaning increased neuroplasticity and efficacy. The dramatically reduced treatment time, taking it from 5+ weeks down to 5 days, makes treatment much less demanding for the patient as well. The combination with fMRI guidance makes this treatment especially effective.",
+        "Further developments in this technology can help make it even more viable. Currently, research is being done into making TBS and TMS treatment mobile and/or home based, offering a much more convenient option. Further and longer trials are required to prove this treatment, but the potential is real."
+      ],
+      "sources": [
+        { "label": "PubMed 37625365", "url": "https://pubmed.ncbi.nlm.nih.gov/37625365/" },
+        { "label": "PubMed 38985492", "url": "https://pubmed.ncbi.nlm.nih.gov/38985492/" },
+        { "label": "PubMed 35060259", "url": "https://pubmed.ncbi.nlm.nih.gov/35060259/" },
+        { "label": "International Journal of Bipolar Disorders", "url": "https://journalbipolardisorders.springeropen.com/articles/10.1186/s40345-019-0160-1" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "single-dose-psilocybin-for-long-term-depression-remission",
+      "title": "Single Dose Psilocybin for Long Term Depression Remission",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2024-10-11",
+      "readTime": "2 min read",
+      "aiSummary": "A single, therapist-guided dose of psilocybin shows potential to produce rapid, sustained remission in treatment-resistant depression when combined with psychotherapy. It appears to work by increasing neuroplasticity and loosening rigid negative thought patterns rather than replacing therapy outright.",
+      "content": [
+        "Major Depressive Disorder (MDD) affects millions worldwide, often stubbornly resistant to traditional treatments such as antidepressants and psychotherapy. For many, the path to relief can be long and uncertain, filled with trial and error.",
+        "From a neuroscience standpoint, depression often disrupts brain networks involved in mood regulation, emotional processing, and cognitive flexibility. Key regions, like the default mode network (DMN) and prefrontal cortex, show alterations in activity and connectivity. This altered state of function leads to persistent negative thought patterns and impaired emotional resilience.",
+        "An unorthodox solution has recently emerged in 2024 in the use of psilocybin, a naturally occurring psychedelic compound. When administered in a single dose under guided therapeutic conditions, it has demonstrated the potential to induce rapid and sustained remission in patients with treatment-resistant depression.",
+        "How Psilocybin Works",
+        "When ingested, Psilocybin is converted to psilocin, which primarily acts on serotonin 2A receptors (5-HT2A), which are abundant within the prefrontal cortex. Psilocin partially activates these receptors, not quite to the level that serotonin does. In doing so, the activation leads to increased excitability and enhanced glutamate release. These effects promote neuroplasticity, meaning they essentially allow for the brain's connections to be easier to change or mold.",
+        "Psilocin also reduces rigid activity within the DMN. This allows for the patient to experience less constrained patterns of thinking, and in a case of depression, that means lessening the loop of negative thoughts and allowing for more flexible thinking.",
+        "These two effects don't do much to fix depression, but they do allow for traditional psychotherapy to be much, much more effective. A single dose of psilocybin combined with psychotherapy can produce remission in a majority of patients within a few weeks, with symptom relief lasting without additional dosing for months at a time. Side effects can include headaches, nausea, and temporary anxiety isolated to the psychedelic experience immediately after consuming Psilocybin.",
+        "A Supplement, Not a Cure.",
+        "Psilocybin treatment isn't meant to replace traditional therapy, it's meant to supplement it. Not only could it produce stronger, more effective results compared to antidepressants or psychotherapy alone, but relief can come much, much sooner with lessened side effects."
+      ],
+      "sources": [
+        { "label": "PubMed 38359838", "url": "https://pubmed.ncbi.nlm.nih.gov/38359838/" },
+        { "label": "PubMed 27909165", "url": "https://pubmed.ncbi.nlm.nih.gov/27909165/" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "ethical-concerns-with-innovation-in-mental-health-technologies",
+      "title": "Ethical Concerns with Innovation in Mental Health Technologies",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2024-09-27",
+      "readTime": "3 min read",
+      "aiSummary": "As AI apps, psychedelics, and neural implants expand mental health treatment options, this piece raises concerns about informed consent in vulnerable patients, data privacy in mental health apps, and cultural bias in diagnostic criteria built on Western populations.",
+      "content": [
+        "Medical technology continues to innovate, especially in the field of mental health. AI powered therapeutics, psychedelics in medication, neural implants, and combinations of existing treatments, the field continues to evolve. Yet, many of these solutions raise ethical concerns. Ethics remains one of the most pressing topics when discussing the field of psychology, and questions only increase with more complicated treatments. Is informed consent possible when under psychological distress? Should experimental treatments be allowed for such vulnerable populations?",
+        "Informed Consent",
+        "Informed consent is one of the most essential parts of mental health treatment. Patients must be properly informed of everything a treatment will or can do to them. Many patients, however, are in states of impaired judgement. Psychosis, addiction, anxiety, and many more illnesses come with the hallmark of impaired decision making. Especially with medication, the judgement of risk may be difficult for these patients.",
+        "The Pros & Cons of Digital Tools",
+        "Digital tools, like phone apps and AI powered tools are changing how patients can access care. These resources, however, collect personal psychological data, mostly with minimal professional oversight. Many apps share this data with third parties.",
+        "A 2019 study analyzed 36 highly trusted mental healthcare apps and found that 29 of them shared user data with third parties without clearly disclosing this to users. Many of these apps also lacked end to end encryption or strong security standards. It is important for platforms to allow patients to track and visualize how their data is used.",
+        "Concerns with AI are clear and extensive. AI algorithms often make mistakes due to incomplete information. When models incorrectly flag users as high-risk, it could result in promoting unnecessary emergency measures. More concerning, however, is when an AI model may underestimate the severity of the problem, and cause that patient to miss care when they need it. Algorithmic transparency can sometimes aid in increasing the amount of trust patients can place in their apps and AI assistants. Some apps offer dashboards showing which algorithms are analyzing their mood and why certain recommendations are made.",
+        "Digital tools, though, also carry with them the potential to reduce inequalities in access to mental health treatment and support. Many patients may have limited access to professional support. Patients who live in rural areas, have mobility limitations, or other situations making it difficult to reach professional care can benefit from platforms like telehealth or AI powered apps and therapy. These technologies aren't replacements for professionals, but they can serve as supplements for those whose access to physicians is limited. Mental health often requires constant attention, which can be very difficult for patients who have to go out of their way to receive professional care.",
+        "Cultural Bias",
+        "When diagnosing and treating mental health disorders, one more commonly forgotten about a patient's background is their cultural heritage. Much of psychiatric innovation is based on western biomedical traditions. Technologies and treatments that ignore cultural context can carry with them the risk of misdiagnosing or mistreating non-western populations.",
+        "For example, in some East Asian populations, depression is more likely to present with somatic symptoms (such as fatigue or headaches) than negative thought patterns or sadness. The DSM-5's symptom criteria for depression don't translate as well when applying it to these populations. Because of this, tools and technologies, especially AI powered algorithms trained on western resources, might struggle to recognize cultural differences, and therefore may misdiagnose or provide incorrect advice to users.",
+        "Responsible innovation must consider cultural humility, diverse trial populations, and global standards that reflect the full range of human experience so that everyone can be treated effectively and equally.",
+        "Ethics in Mental Health Tech",
+        "As mental health technologies change over time, ethical foundations must persist. From privacy risks to bias, there are many ethical challenges that come with the field of psychology. Combining digital tools and technologies with treatment introduces even more ethical challenges to overcome. While it is true that advancements in this space can help to expand access to more populations, improve accuracy in diagnosis and advice, and provide safe and effective treatment, these ethical challenges must be overcome. Every new technology or treatment should be thought through and created with ethical concerns in mind."
+      ],
+      "sources": [
+        { "label": "JAMA Network Open", "url": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2730782" },
+        { "label": "JMIR mHealth and uHealth", "url": "https://mhealth.jmir.org/2021/7/e27343" },
+        { "label": "BMC Medicine", "url": "https://bmcmedicine.biomedcentral.com/articles/10.1186/s12916-015-0444-y" },
+        { "label": "JMIR Mental Health", "url": "https://mental.jmir.org/2020/12/e23776" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "why-the-brain-is-so-hard-to-treat",
+      "title": "Why The Brain Is So Hard to Treat",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2024-09-13",
+      "readTime": "2 min read",
+      "aiSummary": "The brain's sheer complexity, the blood-brain barrier's resistance to most drugs, and its capacity to entrench harmful patterns through neuroplasticity all help explain why psychiatric and neurological conditions remain harder to diagnose and treat than most other diseases.",
+      "content": [
+        "Mental health disorders are some of the most complex conditions humans face. For years, the medical community has continued to make remarkable advances in understanding the heart, immune system, and cancer, yet the brain remains one of the least understood organs.",
+        "The Brain's Complexity",
+        "The human brain contains around 86 billion neurons, each forming thousands of synapses with other neurons, which creates a network of over 100 trillion connections. Unlike the heart or the lungs, this incredible complexity is not uniform. The brain is composed of specialized regions that process emotion, memory, movement, senses, and automatic functions all at once.",
+        "Disorders like anxiety or depression aren't tied to just one malfunctioning part of the brain. They're emergent conditions, resulting from dysfunction across multiple systems of the brain, involving disruptions in chemical processes, hormone imbalances, and thought processes.",
+        "The Invisibility of Mental Health Conditions",
+        "A patient can report panic, despair, or intrusive thoughts, but the most common measurement methods, like brain scans and blood tests, often look completely normal. Unlike a tumor or a broken bone, there's no visible marker for OCD or bipolar disorder.",
+        "This lack of visible markers makes diagnosis, tracking treatment response, and condition differentiation very difficult.",
+        "The Blood Brain Barrier",
+        "The blood-brain barrier (BBB) is a protective wall of cells that prevents most substances from entering the brain from the bloodstream. It's essential for keeping toxic substances, pathogens, and other harmful materials from entering the brain, but unfortunately, it also makes it more difficult to send medication to the brain as well.",
+        "Almost no large molecule drug can cross the BBB without special mechanisms or invasive delivery methods. About 98% of small molecule drugs face the same issue. While medicine has evolved to allow for these drugs to enter, the methods they are forced to resort to make drug development for neurological and psychiatric conditions more expensive and risky compared to other bodily systems.",
+        "Neuroplasticity",
+        "The brain is plastic, meaning it can change its structure and function in response to experience. This makes therapy and rehabilitation possible, while also making it easy for harmful patterns and processes to become permanent. For example, chronic anxiety can rewire the amygdala and prefrontal cortex in ways that make the brain more sensitive to threat. This is one of the factors that makes achieving full remission of psychological conditions very difficult, and that makes relapse extremely common.",
+        "Psychiatric and neurological conditions also often present with symptoms that are very difficult to distinguish. Many patients are comorbid with other bodily conditions, making diagnosis more difficult still.",
+        "The Future of Mental Health Treatment",
+        "Despite these challenges, technologies like functional MRI, AI-based diagnostics, and new medications are helping researchers get more precise insights into brain function and treating conditions in more effective ways. Personalized therapies and medicines, using genetics, behavioral data, and neuroimaging, pave the way for more effective treatment plans.",
+        "For now, treating the brain remains an exercise in humility. That is why when mental health breakthroughs do happen, they're so incredibly valuable. New technology, AI assisted treatment, novel medication, combined treatment, and much much more, are coming to the surface to offer new solutions to these conditions."
+      ],
+      "sources": [
+        { "label": "PubMed 9496621", "url": "https://pubmed.ncbi.nlm.nih.gov/9496621/" },
+        { "label": "PubMed 23111147", "url": "https://pubmed.ncbi.nlm.nih.gov/23111147/" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "mental-health-overview",
+      "title": "Mental Health Overview",
+      "author": "Arnav Chinnappareddy",
+      "topic": "Psychology & Neuroscience",
+      "publishedDate": "2024-08-28",
+      "readTime": "2 min read",
+      "aiSummary": "An introduction to this project's year-long mental health and neurotechnology blog, framing the scale of the mental health crisis in the U.S. and previewing coverage of emerging treatments like neural implants and targeted brain stimulation.",
+      "content": [
+        "Despite all the remarkable innovations in medicine and growing trust in science and healthcare, one area still struggling to get the recognition it truly deserves is mental health and related neuroscience. This is partly due to the difficulty and differences in treatments in comparison to other medical issues. Healthcare is often associated with physical ailments, like broken bones, heart attacks, infections, or cancers, but mental illnesses and brain diseases that aren't physical need to be treated with the same urgency.",
+        "Sometimes, to grasp at scale and urgency, numbers are very useful. To put things in perspective, a 2022 study found that suicide rates have increased by 35% between 2000 and 2018 alone. Worldwide, suicide remains the leading cause of violent death. These deaths were not caused by physical ailments, treatable with pills or surgeries, but illnesses like Major Depressive Disorder, substance use disorders, or anxiety disorders. Nearly one in five U.S. Adults live with mental illnesses like these.",
+        "Looking at the statistics, it becomes easy to recognize how important paying attention to mental illness really is. What alarms me even more is how often brain related disorders like depression, anxiety, and PTSD go untreated before more urgent action becomes necessary.",
+        "However, this field is seeing more and more innovation every day. Thanks to new developments in neuroscience technology especially, such as neural implants, targeted brain stimulation, and much more, the world is coming closer to treating these ailments. The challenge we face now is making sure the next generation of psychiatry and neuroscience professionals is equipped to carry this knowledge and momentum forward.",
+        "This is the first post of a year long independent research blog. Twice a week, this project will explore the necessities of mental health technology advancement, report on recent promising developments, and reflect on the state of the field."
+      ],
+      "sources": [
+        { "label": "Annual Review of Public Health", "url": "https://www.annualreviews.org/content/journals/10.1146/annurev-publhealth-051920-123206" },
+        { "label": "NIMH — Mental Illness Statistics", "url": "https://www.nimh.nih.gov/health/statistics/mental-illness" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "smart-stethoscope-an-innovative-use-of-ai-in-cardiology",
+      "title": "\"Smart\" Stethoscope: An Innovative use of AI in Cardiology",
+      "author": "Arnav Maskey",
+      "topic": "Cardiology",
+      "publishedDate": "2025-09-22",
+      "readTime": "2 min read",
+      "aiSummary": "A new AI-powered stethoscope can flag signs of heart failure, atrial fibrillation, and valve disease from a 15-second recording. A 1.5-million-patient NIHR study found it roughly doubled detection of these conditions, though two-thirds of its positive flags didn't hold up on follow-up testing.",
+      "content": [
+        "Introduction - Stethoscope as we know it:",
+        "Stethoscopes are one of the most important medical devices in cardiology. The idea originating in 1816, the modern stethoscope allows physicians to hear the internal activity of the heart. This can assist in identifying any abnormalities of internal organs that can be detected by sound and allows the diagnosing and monitoring of patients. There is no doubt that this is important, but recently, the capabilities of the stethoscope have the potential to increase so much more thanks to innovations in artificial intelligence.",
+        "\"Smart\" Stethoscope:",
+        "A new smart stethoscope has been developed, now able to detect heart problems for doctors in under 15 seconds using artificial intelligence. The technology was introduced and presented at the European Society of Cardiology's meeting in Madrid. The stethoscope takes an electrocardiogram (ECG) and utilizes AI in order to detect any irregularities in the test or any signs of future irregularities. The AI stethoscope is quick and easy to use and could be incorporated in a physician's everyday practice due to its efficiency and usability.",
+        "How does it work?",
+        "How the stethoscope works is that it has an AI device the size of a playing card which records sounds from the heart and measures electrical signals. The data observed by the AI component is sent to a cloud system where computer programs cross check the data collected to a database of 10,000+ patients in order to recognize patterns that may be related to heart disease/disorder. The results generated by the computer programs are then sent to the doctor (regularly through the phone) telling them if the patient has any irregularities or future problems.",
+        "NIHR Study:",
+        "The Imperial College London and Imperial College Healthcare have conducted research funded by the National Institute for Health and Care Research (NIHR) with the new AI stethoscope. The study was done in over 200 general practice clinics with over 1.5 million patients. They found out that patients were twice as likely to be diagnosed with heart failure, 3.5 times more likely to be diagnosed with atrial fibrillation, and twice as likely to receive a diagnosis of heart valve disease.",
+        "Although having a very promising roll out on testing, there are problems that must be addressed with this new technology before it can be truly implemented across all practices of cardiology. For instance, patients who were diagnosed by the AI stethoscope only actually had the correct heart disease one third of the time. Further tests were required in order to get the correct diagnosis. Because of the presence of error from the AI component, after the study, 70% of the general practice clinics stopped using the tool.",
+        "Conclusion - What's next?",
+        "In order for the usage of this tool to be widespread it is essential that these errors are smoothed out so more people could use this smart stethoscope in general practice with the end goal of saving even more lives."
+      ],
+      "sources": [
+        { "label": "Knowridge Science Report (2025) — AI stethoscope can detect three heart diseases in just 15 seconds", "url": "https://knowridge.com/2025/09/ai-stethoscope-can-detect-three-heart-diseases-in-just-15-seconds/" },
+        { "label": "Health and Me (2025) — New AI Stethoscope Can Detect Serious Heart Conditions In Just 15 Seconds", "url": "https://www.healthandme.com/health-news/new-ai-stethoscope-can-detect-serious-heart-conditions-in-just-15-seconds-article-152643708" },
+        { "label": "Cleveland Clinic — What Is a Stethoscope? Definition, Types, How It's Used", "url": "https://my.clevelandclinic.org/health/articles/stethoscope" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "advancements-in-robotic-surgery",
+      "title": "Advancements in Robotic Surgery",
+      "author": "Arnav Maskey",
+      "topic": "Cardiology",
+      "publishedDate": "2025-04-18",
+      "readTime": "3 min read",
+      "aiSummary": "Robotic-assisted surgery offers surgeons greater precision and stability through robotic arms and 3D imaging, but adoption is slowed by high costs, a steep learning curve, and reduced tactile feedback compared to traditional hands-on surgery.",
+      "content": [
+        "Today, rather than focusing solely on advances in technology for Cardiology, a form of medical technology that can not only be heart related but essential for all human body systems has been garnering attention. An important development in medical technology is that of surgery robots which can bring increased efficiency and a plethora of benefits to institutions that utilize this new form of medical technology. However, considering how new this technology is to the market, before implementation can occur, it is essential that the pros and the cons of this development are weighed effectively for institutions to make the best possible decision moving forward for the sake of patient safety.",
+        "Robotic surgery has three main features that it brings to institutions that use it each with a great number of benefits. Robotic surgery provides robotic \"arms\" which are the main way that the surgeons are able to interact with the patient. The arms can hold tiny surgical instruments which are to be used and offer a sleek design and precision that can have more stability than human hands and approach more areas in an easier fashion. Alongside the arms, a high-definition camera is attached as well. This offers surgeons a way to view the surgical area in highly defined 3D video that misses near none details. The surgeons' control all of this through a console where the surgeons can control the positioning of the arms and cameras through the controls on the console which are very similar to joysticks.",
+        "A common misconception that arises is that these machines are going to replace surgeons; this is not the case. These machines are added tools to improve the effectiveness of such procedures and with advancements in technology, there is bound to be an advancement of methods used in order to support an increase in the quality of health services alongside the improvements in technology. Surgeons are not inexperienced when using this new technology, they are provided training on how to perform robot-assisted procedures through robotic surgery fellowships.",
+        "There are many advantages to this new method, but alongside it there are disadvantages that come alongside them. Many disadvantages are related to the technology being relatively new that could be overcome with time and widespread implementation. These include a learning curve that requires surgeons to become proficient in using robotic systems, limited availability due to its new implementation, and ethical and legal considerations because of the relatively unknown field that is brought alongside robotic surgery. Additionally, disadvantages related to the practice itself include a higher cost associated with maintaining and constructing robotic surgical systems as well as providing necessary training to surgeons who would use this method, potential of mechanical malfunctions as systems are complex, and a malfunction during surgery could lead to fatal outcomes, lack of interaction as the surgeon uses a camera to view the surgery site and cannot touch and analyze the site in person, leading to gaps in information, and finally size and space restrictions due to the large scale of surgical systems.",
+        "Robotic surgery is a new upcoming field that improves many aspects of surgical procedure but adds a new dimension of factors that need to be considered if this technology is to be adapted across multiple institutions, especially for institutions that perform lifesaving operations; putting faith in new systems is never easy. It is important to follow developments in robotic surgery and to see future improvements that could lead to widespread implementation and improved quality of health services."
+      ],
+      "sources": [
+        { "label": "Cleveland Clinic — Robotic surgery", "url": "https://my.clevelandclinic.org/health/treatments/22178-robotic-surgery" },
+        { "label": "Carlos Barraza — 16 Advantages and Disadvantages of Robotic Surgery", "url": "https://barrazacarlos.com/advantages-and-disadvantages-of-robotic-surgery/" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "rna-therapeutics-2-coronary-bypass-surgery",
+      "title": "RNA Therapeutics 2 - Coronary Bypass Surgery",
+      "author": "Arnav Maskey",
+      "topic": "Cardiology",
+      "publishedDate": "2024-10-05",
+      "readTime": "1 min read",
+      "aiSummary": "RNA therapeutics that prompt the body to produce VEGF-A, a protein that promotes blood vessel growth, may help patients undergoing coronary bypass surgery. Newer 'naked RNA' delivery appears to avoid the leaky-vessel side effects seen in earlier VEGF-A trials.",
+      "content": [
+        "Further trials into the effects and usefulness of RNA therapeutics on cardiovascular health have revealed their potential to assist patients undergoing coronary artery bypass surgery. Coronary bypass surgery is a procedure that helps open up multiple pathways for blood. The need for this surgery is caused when pathways, such as the arteries, are blocked. The way RNA therapeutics work in this case is by making the body produce vascular endothelial growth factor A (VEGF-A), which is a protein that enhances blood vessel formation as well as overall increased strength in the heart muscles. Previous trials with VEGF-A have resulted in setbacks due to unwanted side effects such as leaky blood vessels caused by VEGF-A, this being an undesired event. Recent developments have found that using naked RNA works effectively and promotes better results. This therapy has been able to improve heart function and blood vessel formation and further strides in research need to be done concerning RNA therapeutics to expand its usability in cardiovascular health for a healthier future."
+      ],
+      "sources": [
+        { "label": "Moderna — mRNA to Boost VEGF-A", "url": "https://www.modernatx.com/en-US/media-center/all-media/blogs/mrna-to-boost-vegf-a" },
+        { "label": "Mayo Clinic — Coronary artery bypass surgery", "url": "https://www.mayoclinic.org/tests-procedures/coronary-artery-bypass-surgery" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "press-scoring",
+      "title": "PRESS Scoring",
+      "author": "Arnav Maskey",
+      "topic": "Cardiology",
+      "publishedDate": "2024-11-29",
+      "readTime": "2 min read",
+      "aiSummary": "A genetic test called PRESS can identify patients with hyperactive blood platelets who face elevated future cardiovascular risk. It successfully flagged high-risk patients with peripheral artery disease in trials, though it isn't yet validated for routine clinical use.",
+      "content": [
+        "Predicting and preventing future cardiovascular diseases is extremely important as if something is left undetected, it becomes worse and eventually fatal for patients. Cardiovascular diseases are often life threatening and once they happen, there is little that can be done to stop it. Instead, there needs to be a way to detect the future presence of the disease in order to prepare the individual for the treatment to come.",
+        "One way to do this is by looking at how specific patient's blood platelets behave. Blood platelets that are hyperactive are likely to clump together and form blood clots causing atherothrombosis which is the buildup of fatty deposits known as atheroma on the arterial walls. The hyperactive blood platelets then are an indication of this condition which is known to cause deadly complications such as heart attacks and strokes. This is a condition already well known, however, finding which specific patients contain hyperactive blood platelets is more difficult, and discovering how to identify such conditions would potentially save many lives.",
+        "Genetic testing can be used in order to identify differences among genes of patients who have hyperactive platelets and those who do not. The technology used is PRESS, the Platelet Reactivity ExpreSsion Score, which is able to detect and identify the reactivity of platelets based on genetic signatures. It can be used to successfully identify those who are at risk of future cardiovascular diseases and therefore can help reveal candidates for treatments such as antiplatelet therapy.",
+        "In tests, PRESS was able to identify hyperreactive phenotypes in those with peripheral artery disease or PAD, and PAD patients after the PRESS test that received a score above the median were correctly identified as patients who had high risk of developing a cardiovascular disease in the future. PRESS testing was also able to identify that PAD patients with hyperactive blood platelets were likely to have diabetes. Additionally, PAD patients with hyperactive blood platelets were often associated with gangrene or the death of body tissue which is caused by lack of blood flow. PRESS also was tested in a sample of patients who were healthy, and it performed well as PRESS successfully did not detect any abnormalities within the healthy cohort.",
+        "Thanks to PRESS testing, it is easier to detect patients who have hyperactive blood platelets and additionally it is possible to assign symptoms to hyperactive blood platelets such as diabetes and gangrene, however despite this success, PRESS is not yet on a point-of-care testing level.",
+        "Steps that need to be taken in order for PRESS scoring to be used alongside other tests that a physician can use directly include determining if platelet hyperactivity detected by PRESS scoring is unaffected by age/sex/race interactions, as well as other things that may cause an inaccurate result to be produced by the test.",
+        "That being said, PRESS scoring is a future technology in cardiology that can be taken to the next level and help identify individuals with higher risk of cardiovascular disease, and therefore help highlight candidates for therapies, potentially saving countless lives."
+      ],
+      "sources": [
+        { "label": "ScienceDirect Topics — Platelet Reactivity, an overview", "url": "https://www.sciencedirect.com/topics/medicine-and-dentistry/platelet-reactivity" },
+        { "label": "TCTMD — Platelet Hyperreactivity Score May Improve CVD Risk Detection", "url": "https://www.tctmd.com/news/platelet-hyperreactivity-score-may-improve-cvd-risk-detection" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "glp-1-agonist-in-cardiovascular-health",
+      "title": "GLP-1 Agonist in Cardiovascular Health",
+      "author": "Arnav Maskey",
+      "topic": "Cardiology",
+      "publishedDate": "2025-06-13",
+      "readTime": "3 min read",
+      "aiSummary": "Beyond their approved use for diabetes and obesity, GLP-1 agonists reduced major cardiovascular events by 20% in a 17,604-patient trial of overweight or obese adults without diabetes, likely via weight loss's benefits on heart function and blood pressure.",
+      "content": [
+        "What is GLP-1 Agonist?",
+        "GLP-1 Agonists is a medication that assists with lowering blood sugar levels with the end goal of weight loss. This type of medication is a common part of a treatment plan for patients who have obesity of type 2 diabetes. The medication was approved in 2005 by the FDA. Due to its recency of being an approved medication, there are still many experiments and researchers attempting to determine further uses of the medication as well as any complications that could arise from using the drug. Types of GLP-1 agonists include Dulaglutide, Exenatide, Exenatide extended-release, Liraglutide, Lixisenatide, Semaglutide injections, and Semaglutide tablets.",
+        "How does GLP-1 Agonist work?",
+        "GLP-1 agonists mimic the GLP-1 hormone. This hormone is released by the small intestine and triggers insulin release from the pancreas which allows the body to use glucose for energy and therefore lowers the amount of glucose in the blood. A lack of insulin leads to higher blood sugar and to diabetes. The hormone also blocks glucagon secretion which is a hormone that raises the blood sugar levels. Finally, the hormone slows the emptying of the stomach, meaning the glucose is released slower into the blood stream, and also makes you feel fuller after eating.",
+        "The GLP-1 agonist as mentioned before mimics the hormones and brings all the same benefits as the GLP-1 hormone, having the end effect of being able to reduce blood sugar levels in the blood. This is done by the GLP-1 agonist bonding to the GLP receptors to trigger the same effects as the hormones.",
+        "The medication assists with those with type 2 diabetes by triggering the release of insulin and slowing digestion to decrease blood sugar spikes.",
+        "GLP use in cardiovascular health:",
+        "This medication seems to only be effective for those with blood sugar levels and conditions related to similar parts of the body, however, GLP-1 agonist treatments in recent research have been shown to provide cardiovascular benefits.",
+        "In the SELECT trial, there were 17,604 patients that were overweight or obese (without diabetes). The medication was administered at 2.4 mg weekly and reduced significant cardiovascular events by 20% than the placebo effect. The medication also decreased systolic blood pressure by 3.3 mm Hg and decreased high-sensitivity C-reactive protein (a protein made by the liver which increases the risk of getting coronary artery disease leading to narrowed blood vessels and increased risk of a heart attack) levels by 37.8%.",
+        "A potential reason for these results occurring could be because of the effects of weight loss on heart function, which have historically been associated with improved heart health afterwards. Those who have seen improved weight loss have alongside it seen better left ventricular ejection fraction and improved diastolic functions. This is a reversal of the symptoms placed on the heart from obesity. Taking the GLP-1 agonist medication can help achieve these results for patients who are at risk of cardiovascular events.",
+        "Conclusion:",
+        "GLP-1 agonist is a relatively new medication that has been introduced; initially used for patients with diabetes and obesity, research into the medication has revealed its surprising positive effect on cardiovascular health. With time, more uses for the medication can be seen, and hopefully even more ways to help people maintain positive heart health."
+      ],
+      "sources": [
+        { "label": "GlobalRPH (2025) — Breakthrough Heart Treatments of 2025", "url": "https://globalrph.com/2025/03/breakthrough-heart-treatments-of-2025-a-new-era-in-cardiology/" },
+        { "label": "Cleveland Clinic — GLP-1 agonists", "url": "https://my.clevelandclinic.org/health/treatments/13901-glp-1-agonists" },
+        { "label": "Lincoff et al. (2023), New England Journal of Medicine — Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes", "url": "https://doi.org/10.1056/nejmoa2307563" },
+        { "label": "Mayo Clinic — C-reactive protein test", "url": "https://www.mayoclinic.org/tests-procedures/c-reactive-protein-test/about/pac-20385228" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "total-artificial-heart-reaches-breakthrough-status",
+      "title": "Short and Sweet: Total Artificial Heart reaches 'breakthrough' status",
+      "author": "Arnav Maskey",
+      "topic": "Cardiology",
+      "publishedDate": "2025-07-25",
+      "readTime": "1 min read",
+      "aiSummary": "BiVacor's titanium total artificial heart, a fist-sized device with a single magnetically suspended rotor as its only moving part, has been granted FDA breakthrough device status.",
+      "content": [
+        "BiVacor has made a titanium Total Artificial Heart. This device has been granted breakthrough device status by the US FDA.",
+        "It has no valves or flexing ventricle chambers, and the only moving part is a magnetically suspended double-sided centrifugal pump impeller. The entire contraption is based on rotary blood pump technology and is only the size of an adult fist."
+      ],
+      "sources": [
+        { "label": "Cardiovascular Business (2025) — FDA sees promise in new total artificial heart technology, granting it 'breakthrough' status", "url": "https://cardiovascularbusiness.com/topics/clinical/cardiac-surgery/fda-sees-promise-new-total-artificial-heart-technology-granting-it-breakthrough-status" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "rna-therapeutics-1-adeno-associated-viruses-and-myocardial-infarction",
+      "title": "RNA Therapeutics 1 - Adeno Associated Viruses & Myocardial Infarction",
+      "author": "Arnav Maskey",
+      "topic": "Cardiology",
+      "publishedDate": "2024-09-20",
+      "readTime": "2 min read",
+      "aiSummary": "Adeno-associated virus vectors can deliver RNA therapeutics to heart muscle cells to encourage their regeneration after a heart attack, potentially replacing non-functional scar tissue. Viral delivery's immune response remains a hurdle that alternatives like lipid nanoparticles aim to solve.",
+      "content": [
+        "An important technology that must be considered for the future of cardiovascular health is that of RNA therapeutics. RNA therapeutics is technology that can alter gene expressions, providing medical aid beyond that of traditional medicine.",
+        "Historically, cardiovascular diseases aren't easily treatable or unaffected from regular pharmacy drugs and standard medication. How this technology works is that the RNA therapeutics that can alter gene expression needs a form of transport, known as a vector, able to successfully be implemented in the proper location. This in mind, in order to treat cardiovascular specific diseases, a vector needs to be chosen that already targets cardiovascular areas. A vector commonly used is adeno associated viruses, or AAVs.",
+        "An AAV is adeno associated viruses, small viruses with a genome of single stranded DNA. What makes AAVs particularly attractive for cardiac gene therapy is the long-term persistence of the viral genome in an extrachromosomal form, which leads to the durable expression of the therapeutic protein.",
+        "Using AAV, miRNA can be delivered to cardiac myocytes which are muscle cells of the heart. They are striated and their main job is to contract, causing heartbeat or their body; this obviously shows their importance.",
+        "Usage of AAV to access the cardiac myocytes can help the body in a multitude of therapeutic ways to assist with heart health. One example of such aid would be enhanced myocyte proliferation, a process when cardiac myocytes multiply. This process usually does not continue after birth and most organisms are stuck with the same number of cardiac myocytes and the number can only decrease. This enhanced myocyte proliferation is essential to provide aid to patients who have experienced myocardial infarction, when blood flow to heart is stopped, causing cell death, especially that of cardiac myocytes. After myocardial infarction the cardiac myocytes do not come back and are replaced with scar tissue that does not retain the same functionality as cardiac myocytes, unable to contract properly, causing reduced blood flow and increased stress on the heart, worsening the life of the affected patient.",
+        "The benefit of using RNA therapeutics being obvious here, replacing dead cells through myocyte proliferation that would normally have been permanently terminated.",
+        "This technology is essential for treating this commonly believed to be \"untreatable\" diseases, however a problem arises using AAV. Using a viral vector has the issue of causing an unwanted immune response so other options are being researched one being promising is lipid nanoparticles to transfer RNA therapeutics. Importantly, finding ways to use RNA therapeutics to assist with cardiac health as seen with myocyte proliferation is essential for breaking the norm of cardiology as we know it, and it remains an important technology that should and will be explored further."
+      ],
+      "sources": [
+        { "label": "Gene Therapy Net — Adeno Associated Viruses", "url": "https://www.genetherapynet.com/viral-vector/adeno-associated-viruses.html" },
+        { "label": "PMC — Article 5544589", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5544589/" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "heart-health-overview",
+      "title": "Heart Health Overview",
+      "author": "Arnav Maskey",
+      "topic": "Cardiology",
+      "publishedDate": "2024-09-04",
+      "readTime": "2 min read",
+      "aiSummary": "An introduction to this project's cardiology blog, noting a troubling 30% rise in heart attacks among 25-to-44-year-olds during the first two years of the COVID-19 pandemic as motivation for closer attention to cardiovascular innovation.",
+      "content": [
+        "With great advances in healthcare and technology every single year as Americans, we might expect to see a lower mortality rate and our old problems start to die down, but unfortunately, one huge issue still remains to rear its ugly head: the amount of people who succumb to heart related diseases. Honestly, to me, upon looking at the statistics, I'd say that this increase in mortality is warranted. The United States population increases with incredible speed, so one would expect mortality to shoot up alongside the growth in population. But then you see the people who are dying of these heart related diseases, and it isn't the same cohort we are familiar with; older individuals with preexisting health complications; it is young people. In fact a study found that heart attacks in people ages 25 to 44 increased by 30% compared to the expected number over the first two years of the COVID-19 pandemic.",
+        "It becomes important, now more than ever, to begin prioritizing the health of not only the usual victims of heart disease, but a new younger age group, if we ever want to contain the destruction that heart disease causes to Americans (In 2022, someone died of stroke alone every 3 minutes 11 seconds in the United States on average). Many like to ask why these things happen, but today, I'd like to look forward and see how we get closer to fixing these issues every day. By opening our eyes to the breakthroughs in medical technology, we ensure that the next generation of health professionals can take the necessary steps to make experimental or new technology into a tool that could save countless lives. Knowledge is the strongest tool against this enemy that is the leading cause of death for Americans, and our goal is to provide this knowledge to the future doctors and scientists of the world. Welcome to MedTech Weekly."
+      ],
+      "sources": [
+        { "label": "Today.com — COVID heart attack young people", "url": "https://www.today.com/health/covid-heart-attack-young-people-rcna69903" },
+        { "label": "American Heart Association — 2025 Statistics At A Glance", "url": "https://www.heart.org/en/-/media/PHD-Files-2/Science-News/2/2025-Heart-and-Stroke-Stat-Update/2025-Statistics-At-A-Glance.pdf" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "short-and-sweet-cvd-risk-from-menopause",
+      "title": "Short and Sweet: CVD Risk from Menopause",
+      "author": "Arnav Maskey",
+      "topic": "Cardiology",
+      "publishedDate": "2025-06-27",
+      "readTime": "1 min read",
+      "aiSummary": "Menopause's drop in estrogen raises blood pressure, cholesterol, and arterial stiffness, increasing cardiovascular risk, especially with earlier menopause onset. Hormone therapy can help some lipid markers but carries its own clotting and stroke risks.",
+      "content": [
+        "Menopause has connections to cardiovascular disease which must be considered in order to ensure the protection of one's health. The risk comes down to menopause's effect on estrogen levels.",
+        "Estrogen helps protect against cardiovascular disease by keeping cholesterol in check, relaxing blood vessels, and reducing stress. Menopause reduces the amount of estrogen in the body, which leads to higher blood pressure, bad cholesterol, and fat buildup. During menopause there is a stiffening of arteries which can lead to the worsening of these symptoms. Other symptoms include increased weight gain and insulin resistance which can lead to type 2 diabetes.",
+        "Earlier menopause is riskier as women who have gone through it have an increased risk of cardiovascular disease.",
+        "Hormone therapy has had mixed evidence for combating the effects on the heart from menopause. Giving estrogen has been able to improve lipid levels and delay artery changes. However, this comes with risks of blood clots and stroke, therefore the method has not been cleared for usage across all practices. However, it should be noted that doing hormone therapy earlier has shown safer results than later (in comparison to the start of menopause).",
+        "It is important to monitor one's cardiovascular risk before, during, and after menopause and controlling factors such as diet and exercise to prevent potential cardiovascular problems."
+      ],
+      "sources": [
+        { "label": "Adach et al. (2022), Archives of Medical Science", "url": "https://doi.org/10.5114/aoms/157308" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "attr-cm-and-amvuttra-a-brief-overview",
+      "title": "ATTR-CM and AMVUTTRA; a brief Overview",
+      "author": "Arnav Maskey",
+      "topic": "Cardiology",
+      "publishedDate": "2025-03-21",
+      "readTime": "2 min read",
+      "aiSummary": "ATTR-CM is caused by misfolded transthyretin protein clumping in heart muscle. AMVUTTRA, an RNA-interference injection, reduced TTR protein levels by 87% in clinical studies and lowered cardiovascular hospitalization and death risk for patients with the disease.",
+      "content": [
+        "ATTR-CM is a disease where a protein called transthyretin (TTR) folds incorrectly. An incorrect folding causes a change in the protein's structure. This causes clumping together and creates amyloid deposits. These amyloid deposits are essentially formed when the proteins in the body clump together and create insoluble fibrils. These can accumulate in many different organs and can lead to life threatening conditions. Specifically, the folding of TTR causes these clumps to form in the heart muscle. This has the direct effect of making the heart muscle stiffer and making its ability to pump blood worse. This can be life threatening, and initial symptoms include shortness of breath, fatigue, arrhythmias, leg swelling, and fainting.",
+        "There are multiple ways to get ATTR-CM. One is caused by heredity, while the other is a Wild type. The hereditary version of ATTR-CM is hATTR-CM which is caused by a mutation in the TTR gene, tightly overlapping with other cardiac diseases such as hypertensive heart disease.",
+        "There is hope however for patients who have ATTR-CM thanks to the treatment AMVUTTRA. AMVUTTRA is a subcutaneous injection treatment, now approved for clinical use for patients who have the ATTR-CM disease and irregularities in the TTR protein. This is done through RNA interference, degrading mRNA for TTR. This reduces the production of TTR in the liver, meaning that the amount of TTR that could be misfolded is reduced, therefore the amount of amyloid clumping is also reduced. Clinical studies show that in 6 weeks with a 2.5-year range, that there was an 87% reduction in overall TTR levels. This causes there to be less fatality as there aren't enough clumps to cause severe symptoms. Clinical studies have shown that AMVUTTRA has been largely successful as most patients have reduced risk of cardiovascular hospitalization, and thankfully, death."
+      ],
+      "sources": [
+        { "label": "Mayo Clinic — Amyloidosis", "url": "https://www.mayoclinic.org/diseases-conditions/amyloidosis/symptoms-causes/syc-20353178" },
+        { "label": "Amvuttra — About ATTR-CM", "url": "https://www.amvuttra.com/attr-cm/about-attr-cm" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "yale-s-new-approach-to-cardiac-surgery",
+      "title": "Yale's new Approach to Cardiac Surgery",
+      "author": "Arnav Maskey",
+      "topic": "Cardiology",
+      "publishedDate": "2025-10-04",
+      "readTime": "2 min read",
+      "aiSummary": "Yale's cardiac surgery program is shifting toward less invasive techniques, like robotic-assisted mitral valve repair and catheter-based valve replacement (TAVR), aiming to speed recovery. The program is also exploring AI as a real-time surgical 'co-pilot' for future operations.",
+      "content": [
+        "The Chief of Cardiac Surgery at Yale, Marc Pelletier, MD, has stated that cardiac surgery is not just about technical success but about the patient's experience before and after.",
+        "Advances in cardiac surgery have not been radical but have instead been about trying to do familiar procedures in less disruptive ways.",
+        "Examples of these include robotic assisted mitral valve surgery, and minimally invasive coronary bypass. Additionally, advances include, rather than opening the sternum, surgeons access the heart via small incisions between the ribs with the use of robotic arms and cameras. These types of inventions have less trauma, quicker recoveries, and less pain.",
+        "TAVR is a method that has undergone a dramatic shift which is a process where the aortic valve is replaced via a catheter using light sedation. This reduces hospital stays and accelerates recovery.",
+        "Despite these advances in less invasive procedures to provide the patient with a better experience, only 20% of mitral valve surgeries in the US are done using the limited invasive approaches. Yale seeks to increase the percentage to deliver exceptional patient care through training that former batches of residents and students may have not had access to.",
+        "AI is used for preoperative planning in surgery currently such as 3D modeling of a patient's heart to simulate device fitting, but there are future avenues for AI in surgery that Yale seeks to tap into. AI, according to Marc Pelletier, could be used as a co-pilot during surgery, providing real time alerts during operation such as warning if a tool is too close to a vulnerable structure, while still the surgeon maintains control, providing a relationship that can deliver higher patient satisfaction.",
+        "Now, for future developments, focus is now shifting towards clinical-outcome research to determine what is best for the patient's end experience. Yale has done this time and time again in surgery, and we can look hopefully towards the future for other organizations to do the same and promote high levels of patient satisfaction."
+      ],
+      "sources": [
+        { "label": "Katella (2025), Yale Medicine — New Advances in Cardiac Surgery Improve Recovery, Survival", "url": "https://www.yalemedicine.org/news/new-advances-in-cardiac-surgery-improve-recovery-survival" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "philips-ai-enabled-ultrasound",
+      "title": "PHILIPS AI-Enabled Ultrasound",
+      "author": "Arnav Maskey",
+      "topic": "Cardiology",
+      "publishedDate": "2025-07-11",
+      "readTime": "1 min read",
+      "aiSummary": "Philips' AI-enabled ultrasound automates measurements and 3D cardiac imaging to speed up scans while keeping clinicians in control, trained on large real-world imaging datasets. Capability still varies by the specific equipment clinicians have access to.",
+      "content": [
+        "AI is a new type of technology that almost all forms of health science have been adapting, cardiology is no different. One of the most interesting implementations of AI is an AI-enabled ultrasound from Philips. It has many features which includes automated measurement and quantification, 3D quantification, Dynamic mitral valve analysis, Image acquisition and selection, and workflow/time savings.",
+        "Philips advertises their AI-enabled ultrasound tools as a tool to make consistent and fast measurements. They position it as a way for smarter scans, fewer clicks, and more control, using AI to automate parts of the scan while still giving the clinician control of the process, maintaining job security while still maximizing the full potential of AI.",
+        "Responsibility is a big part of developing any AI, and Philips makes sure that they are able to consider it in order to make a product that can have sound ethical implications. Algorithms of Philips use hundreds of thousands of real-world clinical images with high quality and oversight from AI code of conducts and internal frameworks to ensure the correctness of the AI identification and monitoring tool.",
+        "This AI is integrated with the Cardiovascular Workspace platform to ensure better quality of service offered by the device.",
+        "This is still relatively new technology, and the full features of the Philips AI echocardiography tools are still limited depending on the particular equipment that the clinicians have access to. Regardless, it is promising technology that could potentially save many more lives."
+      ],
+      "sources": [
+        { "label": "Philips — Smarter scans, fewer clicks, more control: AI-enabled ultrasound", "url": "https://www.usa.philips.com/healthcare/clp/aw/smarter-scans-ai-enabled-ultrasound" }
+      ],
+      "legacy": true
+    },
+    {
+      "slug": "vs-lipoproteins",
+      "title": "Short and Sweet: VS Lipoproteins",
+      "author": "Arnav Maskey",
+      "topic": "Cardiology",
+      "publishedDate": "2024-10-18",
+      "readTime": "1 min read",
+      "aiSummary": "Lipoprotein(a) raises cardiovascular risk independent of standard cholesterol levels and hasn't responded to statins. An experimental antisense drug called pelacarsen has shown it can lower lipoprotein(a) production by up to 80% in trials.",
+      "content": [
+        "Lipoprotein is a risk factor for atherosclerotic cardiovascular disease and is hard to manage within the body. While other lipid-lowering therapies, such as statins, are effective at lowering high levels of lipids in the body, preventing dangerous health effects, these same therapies do not have any effect or a minimal effect on Lipoprotein levels.",
+        "A lipoprotein is a particle that has enhanced atherogenic and thrombogenic potential, which means that the effects include plaque buildup in arteries as well as potential blood clot formation. Higher levels of these lipoproteins cause the person in question to have an increased risk for stroke, heart attack, and peripheral artery disease, even within people who do not have abnormal cholesterol profiles, therefore highlighting the importance of lipoproteins. In the past, there was no way to address high levels of lipoproteins and provide adequate therapy.",
+        "However, a new therapy is entering clinical trials that can successfully lower the lipoprotein levels. These therapies include pelacarsen, which is an antisense oligonucleotide that helps reduce the production of lipoproteins in the liver. The therapy is successful enough to reduce the production of lipoproteins by up to 80%, showing an amazing new breakthrough in this medical technology that can potentially save many lives from a once untouchable particle."
+      ],
+      "sources": [],
+      "legacy": true
+    },
+    {
+      "slug": "short-and-sweet-targets-of-lipid-lowering-mrna-therapeutics",
+      "title": "Short and Sweet: Targets of Lipid-lowering mRNA therapeutics",
+      "author": "Arnav Maskey",
+      "topic": "Cardiology",
+      "publishedDate": "2025-02-21",
+      "readTime": "1 min read",
+      "aiSummary": "RNA-based drugs targeting genes like PCSK9, APOB, and ANGPTL3 in the liver can lower LDL cholesterol, triglycerides, and lipoprotein(a) by altering gene expression rather than blocking downstream enzymes, offering new tools against cardiovascular disease.",
+      "content": [
+        "RNA therapeutics have been successfully able to lower the amount of lipids in the body such as LDL cholesterol, triglycerides and lipoproteins by modification of gene expression. There are multiple targets in lipid disorders. There is the PCSK9 gene which regulates LDL receptor cycling, APOB, the main structural protein in LDL and VLDL. There is ANGPTL3 which inhibits triglyceride clearance. mRNA lipid lowering drugs use GalNAc conjugates which target the liver and these specific genes in order to prevent the negative results of lipid disorders. Medications that specifically target these genes reduce the presence of lipids and improve heart health by reducing substances like LDL cholesterol which can lead to CAD."
+      ],
+      "sources": [
+        { "label": "Dzau & Hodgkinson (2024), Circulation — RNA Therapeutics for the Cardiovascular System", "url": "https://doi.org/10.1161/circulationaha.123.067373" }
+      ],
+      "legacy": true
     }
   ]
 }
 </script>
-
+ 
 <script>
 (function () {
   var DATA = JSON.parse(document.getElementById('medbrief-data').textContent);
-  var articles = DATA.articles.slice().sort(function (a, b) { return a.weekId < b.weekId ? 1 : -1; });
+  var articles = DATA.articles.slice().sort(function (a, b) { return a.publishedDate < b.publishedDate ? 1 : -1; });
+  var contributors = DATA.contributors || [];
   var app = document.getElementById('app');
-
+  var archiveFilter = 'All';
+ 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
-
-  function fmtRange(start, end) {
-    var o = { month: 'long', day: 'numeric', year: 'numeric' };
+ 
+  function fmtDate(d) {
     try {
-      var s = new Date(start + 'T00:00:00');
-      var e = new Date(end + 'T00:00:00');
-      return s.toLocaleDateString('en-US', o) + ' – ' + e.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
-    } catch (e2) { return start + ' – ' + end; }
+      return new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    } catch (e) { return d; }
   }
-
-  function storyCard(story) {
-    var badge = '<span class="badge ' + esc(story.evidenceType) + '">' + esc(story.evidenceLabel) + '</span>';
-    var sources = (story.sources || []).map(function (s) {
+ 
+  function topicClass(topic) {
+    return topic === 'Cardiology' ? 'cardio' : 'neuro';
+  }
+ 
+  function byline(a) {
+    return '<span class="name">' + esc(a.author) + '</span> · ' + fmtDate(a.publishedDate) + (a.readTime ? ' · ' + esc(a.readTime) : '');
+  }
+ 
+  function articleTeaser(a) {
+    return (
+      '<li>' +
+        '<div class="a-title"><a href="#/article/' + esc(a.slug) + '">' + esc(a.title) + '</a></div>' +
+        '<div class="a-meta">' + byline(a) + ' · ' + esc(a.topic) + '</div>' +
+        '<div class="a-summary">' + esc(a.aiSummary || '') + '</div>' +
+      '</li>'
+    );
+  }
+ 
+  function renderArticleBody(a) {
+    var paragraphs = a.content.map(function (p) {
+      var isSubhead = p.length < 70 && !/[.!?]$/.test(p.trim());
+      return '<p' + (isSubhead ? ' class="subhead"' : '') + '>' + esc(p) + '</p>';
+    }).join('');
+    var sources = (a.sources || []).map(function (s) {
       return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label) + ' ↗</a>';
     }).join('');
     return (
-      '<div class="story-card">' +
-        badge +
-        '<h3>' + esc(story.headline) + '</h3>' +
-        section('What happened', story.whatHappened) +
-        section('What the research found', story.whatTheResearchFound) +
-        section('Why it matters', story.whyItMatters) +
-        section("What's next", story.whatsNext) +
-        '<div class="sources-list"><div class="label" style="margin-bottom:6px;">Sources</div>' + sources + '</div>' +
-      '</div>'
+      '<span class="badge-topic ' + topicClass(a.topic) + '">' + esc(a.topic) + '</span>' +
+      '<h2 class="page-title">' + esc(a.title) + '</h2>' +
+      '<div class="meta-row">By ' + byline(a) + '</div>' +
+      (a.aiSummary ? '<div class="ai-summary"><div class="label">AI Quick Summary</div><p>' + esc(a.aiSummary) + '</p></div>' : '') +
+      '<div class="article-body">' + paragraphs + '</div>' +
+      (sources ? '<div class="sources-list"><div class="label">Sources</div>' + sources + '</div>' : '')
     );
   }
-
-  function section(label, text) {
-    return '<div class="story-section"><div class="label">' + esc(label) + '</div><p>' + esc(text) + '</p></div>';
-  }
-
-  function renderArticleBody(article) {
-    return (
-      '<div class="eyebrow">The Week in Medicine</div>' +
-      '<h2 class="page-title">' + esc(article.title) + '</h2>' +
-      '<div class="week-range">' + fmtRange(article.weekStart, article.weekEnd) + '</div>' +
-      '<p class="intro-block">' + esc(article.intro) + '</p>' +
-      article.stories.map(storyCard).join('')
-    );
-  }
-
+ 
   function renderHome() {
     if (!articles.length) {
-      app.innerHTML = '<h2 class="page-title">No articles yet</h2><p>The first weekly issue will appear here once the pipeline runs.</p>';
+      app.innerHTML = '<h2 class="page-title">No articles yet</h2><p>Check back soon for the first issue.</p>';
       return;
     }
     var latest = articles[0];
-    var list = latest.stories.map(function (s, i) {
-      return '<li><span class="n">' + (i + 1) + '</span><span class="t">' + esc(s.headline) + '</span></li>';
-    }).join('');
+    var recent = articles.slice(1, 7).map(articleTeaser).join('');
     app.innerHTML =
       '<div class="home-hero">' +
-        '<div class="eyebrow">Latest Issue · ' + fmtRange(latest.weekStart, latest.weekEnd) + '</div>' +
+        '<span class="badge-topic ' + topicClass(latest.topic) + '">' + esc(latest.topic) + '</span>' +
         '<h2>' + esc(latest.title) + '</h2>' +
-        '<p class="summary">' + esc(latest.intro) + '</p>' +
-        '<a class="btn" href="#/article/' + esc(latest.slug) + '">Read the full issue →</a>' +
+        '<div class="meta-row">By ' + byline(latest) + '</div>' +
+        (latest.aiSummary ? '<p class="summary">' + esc(latest.aiSummary) + '</p>' : '') +
+        '<a class="btn" href="#/article/' + esc(latest.slug) + '">Read the full article →</a>' +
       '</div>' +
-      '<h3 style="font-family: var(--serif); font-size: 18px; margin-bottom: 10px;">This week’s developments</h3>' +
-      '<ul class="headline-list">' + list + '</ul>';
+      (recent ? '<h3 style="font-family: var(--serif); font-size: 18px; margin-bottom: 6px;">More from MedIntel</h3><ul class="article-list">' + recent + '</ul>' : '') +
+      '<p style="margin-top:18px;"><a href="#/archive">Browse the full archive →</a></p>';
   }
-
+ 
   function renderArticle(slug) {
-    var article = articles.filter(function (a) { return a.slug === slug; })[0];
-    if (!article) {
-      app.innerHTML = '<h2 class="page-title">Issue not found</h2><p><a href="#/">Back to Home</a></p>';
+    var a = articles.filter(function (x) { return x.slug === slug; })[0];
+    if (!a) {
+      app.innerHTML = '<h2 class="page-title">Article not found</h2><p><a href="#/">Back to Home</a></p>';
       return;
     }
-    app.innerHTML = renderArticleBody(article);
+    app.innerHTML = renderArticleBody(a);
   }
-
+ 
   function renderArchive() {
-    if (!articles.length) {
-      app.innerHTML = '<h2 class="page-title">Archive</h2><p>No issues published yet.</p>';
-      return;
-    }
-    var items = articles.map(function (a) {
-      return (
-        '<li>' +
-          '<div class="arc-date">' + fmtRange(a.weekStart, a.weekEnd) + '</div>' +
-          '<div class="arc-title"><a href="#/article/' + esc(a.slug) + '">' + esc(a.title) + '</a></div>' +
-          '<div class="arc-summary">' + esc(a.intro) + '</div>' +
-        '</li>'
-      );
+    var topics = ['All'].concat(articles.map(function (a) { return a.topic; }).filter(function (t, i, arr) { return arr.indexOf(t) === i; }));
+    var filtered = archiveFilter === 'All' ? articles : articles.filter(function (a) { return a.topic === archiveFilter; });
+    var filterBtns = topics.map(function (t) {
+      return '<button class="filter-btn' + (t === archiveFilter ? ' active' : '') + '" data-topic="' + esc(t) + '">' + esc(t) + '</button>';
     }).join('');
-    app.innerHTML = '<div class="eyebrow">Archive</div><h2 class="page-title">Every weekly issue</h2><ul class="archive-list">' + items + '</ul>';
+    var items = filtered.length ? filtered.map(articleTeaser).join('') : '<p>No articles in this category yet.</p>';
+    app.innerHTML =
+      '<div class="eyebrow">Archive</div>' +
+      '<h2 class="page-title">Every article</h2>' +
+      '<div class="filter-row">' + filterBtns + '</div>' +
+      '<ul class="article-list">' + items + '</ul>';
+    var btns = app.querySelectorAll('.filter-btn');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('click', function (e) {
+        archiveFilter = e.currentTarget.getAttribute('data-topic');
+        renderArchive();
+      });
+    }
   }
-
+ 
   function renderAbout() {
+    var contributorItems = contributors.length
+      ? contributors.map(function (c) {
+          return (
+            '<li>' +
+              '<div class="c-name">' + esc(c.name) + '</div>' +
+              '<div class="c-role">' + esc(c.role) + '</div>' +
+              (c.bio ? '<div class="c-bio">' + esc(c.bio) + '</div>' : '') +
+            '</li>'
+          );
+        }).join('')
+      : '<li><div class="c-bio">Contributor bios will appear here once added.</div></li>';
+ 
     app.innerHTML =
       '<div class="eyebrow">About</div>' +
-      '<h2 class="page-title">What MedBrief is</h2>' +
+      '<h2 class="page-title">Our Mission</h2>' +
       '<div class="about-content">' +
-        '<p>MedBrief is an automated weekly digest of notable developments in medical and scientific research — clinical trials, drug approvals, public-health surveillance, and medical technology — written for an intelligent general reader, not medical professionals.</p>' +
+        '<p>Our team is dedicated to providing a weekly digest of notable developments in medical and scientific research. We cover clinical trials, drug approvals, public-health surveillance, and developments in medical technology.</p>' +
         '<h3>How stories are selected</h3>' +
-        '<p>Each week, candidate stories are gathered from reputable primary and secondary sources (regulatory agencies like the FDA and CDC, peer-reviewed journals, major research institutions, and established science journalism). Stories covering the same underlying event are grouped together, and the group is judged on medical significance, strength of evidence, and public-health relevance — not on how dramatic a headline sounds.</p>' +
-        '<h3>AI-assisted synthesis</h3>' +
-        '<p>Claude, Anthropic’s AI model, helps synthesize the selected stories into a single weekly article in the format shown here. It is instructed not to invent facts, citations, or statistics, and to clearly label how strong the underlying evidence is for every claim.</p>' +
+        '<p>Each week, our contributors find reputable primary and secondary sources (regulatory agencies like the FDA and CDC, peer-reviewed journals, and major research institutions, and established science journalism).</p>' +
+        '<p>We feature original articles written by contributors. Each student writes and submits a draft, which is reviewed by the MedIntel editorial team before publishing. These pieces reflect each writer’s own research and perspective and are clearly bylined as student-authored.</p>' +
+        '<h3>Our contributors</h3>' +
+        '<ul class="contributor-list">' + contributorItems + '</ul>' +
         '<h3>Sourcing</h3>' +
         '<p>Every story links to the sources it was built from so you can read the original reporting or research yourself.</p>' +
-        '<div class="disclaimer"><strong>Not medical advice.</strong> MedBrief is an educational publication. It does not provide individualized medical advice, and nothing here should be used to start, stop, or change any medication or treatment. Talk to a qualified healthcare provider about your own health.</div>' +
+        '<div class="disclaimer"><strong>Not medical advice.</strong> MedIntel is an educational publication. Nothing here provides individualized medical advice, and nothing here should be used to start, stop, or change any medication or treatment. Talk to a qualified healthcare provider about your own health.</div>' +
       '</div>';
   }
-
+ 
   function setActiveNav(route) {
     var links = document.querySelectorAll('#main-nav a');
     for (var i = 0; i < links.length; i++) {
@@ -359,20 +1091,21 @@
       links[i].classList.toggle('active', isActive);
     }
   }
-
+ 
   function router() {
     var hash = location.hash.replace(/^#/, '') || '/';
     window.scrollTo(0, 0);
-    if (hash === '/' ) { renderHome(); setActiveNav('/'); }
+    if (hash === '/') { renderHome(); setActiveNav('/'); }
     else if (hash === '/archive') { renderArchive(); setActiveNav('/archive'); }
     else if (hash === '/about') { renderAbout(); setActiveNav('/about'); }
     else if (hash.indexOf('/article/') === 0) { renderArticle(hash.replace('/article/', '')); setActiveNav(hash); }
     else { renderHome(); setActiveNav('/'); }
   }
-
+ 
   window.addEventListener('hashchange', router);
   router();
 })();
 </script>
 </body>
 </html>
+ 
